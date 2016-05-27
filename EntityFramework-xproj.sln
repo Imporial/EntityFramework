@@ -86,6 +86,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Microsoft.EntityFrameworkCo
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Microsoft.EntityFrameworkCore.Tools.FunctionalTests", "test\Microsoft.EntityFrameworkCore.Tools.FunctionalTests\Microsoft.EntityFrameworkCore.Tools.FunctionalTests.xproj", "{3DEF9731-D253-42E5-BF89-F04596523D12}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Co.EntityFrameworkCore.Oracle", "src\Co.EntityFrameworkCore.Oracle\Co.EntityFrameworkCore.Oracle.xproj", "{B995FA8A-AADA-4588-A418-9D581C157221}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -240,6 +242,10 @@ Global
 		{3DEF9731-D253-42E5-BF89-F04596523D12}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3DEF9731-D253-42E5-BF89-F04596523D12}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3DEF9731-D253-42E5-BF89-F04596523D12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B995FA8A-AADA-4588-A418-9D581C157221}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B995FA8A-AADA-4588-A418-9D581C157221}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B995FA8A-AADA-4588-A418-9D581C157221}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B995FA8A-AADA-4588-A418-9D581C157221}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -282,5 +288,6 @@ Global
 		{6C155372-A8A1-4E3B-8808-E875AFE452C8} = {7067BD06-DEBE-49A0-BC78-AB99B06424FC}
 		{A9F7622A-62D7-45B9-9FFB-0E00AFFA0BB7} = {CEF61AEE-F8DA-4A3B-9D30-F6228479CA0B}
 		{3DEF9731-D253-42E5-BF89-F04596523D12} = {CEF61AEE-F8DA-4A3B-9D30-F6228479CA0B}
+		{B995FA8A-AADA-4588-A418-9D581C157221} = {7067BD06-DEBE-49A0-BC78-AB99B06424FC}
 	EndGlobalSection
 EndGlobal
