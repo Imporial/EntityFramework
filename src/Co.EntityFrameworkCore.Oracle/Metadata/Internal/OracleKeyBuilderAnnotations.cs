@@ -2,12 +2,13 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using JetBrains.Annotations;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-namespace Microsoft.EntityFrameworkCore.Metadata.Internal
+namespace Co.EntityFrameworkCore.Metadata.Internal
 {
-    public class SqlServerKeyBuilderAnnotations : SqlServerKeyAnnotations
+    public class OracleKeyBuilderAnnotations : OracleKeyAnnotations
     {
-        public SqlServerKeyBuilderAnnotations(
+        public OracleKeyBuilderAnnotations(
             [NotNull] InternalKeyBuilder internalBuilder,
             ConfigurationSource configurationSource)
             : base(new RelationalAnnotationsBuilder(internalBuilder, configurationSource))

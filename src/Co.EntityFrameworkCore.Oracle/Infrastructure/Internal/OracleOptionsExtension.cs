@@ -1,23 +1,25 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
+using Co.Extensions.DependencyInjection;
 using JetBrains.Annotations;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Utilities;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Microsoft.EntityFrameworkCore.Infrastructure.Internal
+namespace Co.EntityFrameworkCore.Infrastructure.Internal
 {
-    public class SqlServerOptionsExtension : RelationalOptionsExtension
+    public class OracleOptionsExtension : RelationalOptionsExtension
     {
         private bool? _rowNumberPaging;
 
-        public SqlServerOptionsExtension()
+        public OracleOptionsExtension()
         {
         }
 
         // NB: When adding new options, make sure to update the copy ctor below.
 
-        public SqlServerOptionsExtension([NotNull] SqlServerOptionsExtension copyFrom)
+        public OracleOptionsExtension([NotNull] OracleOptionsExtension copyFrom)
             : base(copyFrom)
         {
             _rowNumberPaging = copyFrom._rowNumberPaging;
@@ -30,6 +32,6 @@ namespace Microsoft.EntityFrameworkCore.Infrastructure.Internal
         }
 
         public override void ApplyServices(IServiceCollection services)
-            => Check.NotNull(services, nameof(services)).AddEntityFrameworkSqlServer();
+            => Check.NotNull(services, nameof(services)).AddEntityFrameworkOracle();
     }
 }

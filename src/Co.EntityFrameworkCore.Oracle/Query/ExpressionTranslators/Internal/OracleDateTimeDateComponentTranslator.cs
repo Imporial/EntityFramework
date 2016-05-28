@@ -5,10 +5,11 @@ using System;
 using System.Data;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore.Query.Expressions;
+using Microsoft.EntityFrameworkCore.Query.ExpressionTranslators;
 
-namespace Microsoft.EntityFrameworkCore.Query.ExpressionTranslators.Internal
+namespace Co.EntityFrameworkCore.Query.ExpressionTranslators.Internal
 {
-    public class SqlServerDateTimeDateComponentTranslator : IMemberTranslator
+    public class OracleDateTimeDateComponentTranslator : IMemberTranslator
     {
         public virtual Expression Translate(MemberExpression memberExpression)
             => (memberExpression.Expression != null)

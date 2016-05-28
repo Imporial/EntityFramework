@@ -8,19 +8,21 @@ using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Migrations.Operations;
+using Co.EntityFrameworkCore.Migrations.Operations;
 using Microsoft.EntityFrameworkCore.Utilities;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Migrations.Operations;
 
-namespace Microsoft.EntityFrameworkCore.Storage.Internal
+namespace Co.EntityFrameworkCore.Storage.Internal
 {
-    public class SqlServerDatabaseCreator : RelationalDatabaseCreator
+    public class OracleDatabaseCreator : RelationalDatabaseCreator
     {
-        private readonly ISqlServerConnection _connection;
+        private readonly IOracleConnection _connection;
         private readonly IMigrationsSqlGenerator _migrationsSqlGenerator;
         private readonly IRawSqlCommandBuilder _rawSqlCommandBuilder;
 
-        public SqlServerDatabaseCreator(
-            [NotNull] ISqlServerConnection connection,
+        public OracleDatabaseCreator(
+            [NotNull] IOracleConnection connection,
             [NotNull] IMigrationsModelDiffer modelDiffer,
             [NotNull] IMigrationsSqlGenerator migrationsSqlGenerator,
             [NotNull] IMigrationCommandExecutor migrationCommandExecutor,
@@ -72,7 +74,7 @@ namespace Microsoft.EntityFrameworkCore.Storage.Internal
                 .Build("IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0");
 
         private IReadOnlyList<MigrationCommand> CreateCreateOperations()
-            => _migrationsSqlGenerator.Generate(new[] { new SqlServerCreateDatabaseOperation { Name = _connection.DbConnection.Database } });
+            => _migrationsSqlGenerator.Generate(new[] { new OracleCreateDatabaseOperation { Name = _connection.DbConnection.Database } });
 
         public override bool Exists()
             => Exists(retryOnNotExists: false);
@@ -192,7 +194,7 @@ namespace Microsoft.EntityFrameworkCore.Storage.Internal
             {
                 // TODO Check DbConnection.Database always gives us what we want
                 // Issue #775
-                new SqlServerDropDatabaseOperation { Name = _connection.DbConnection.Database }
+                new OracleDropDatabaseOperation { Name = _connection.DbConnection.Database }
             };
 
             var masterCommands = _migrationsSqlGenerator.Generate(operations);

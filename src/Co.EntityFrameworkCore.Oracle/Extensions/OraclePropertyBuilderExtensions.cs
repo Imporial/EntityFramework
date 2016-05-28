@@ -1,6 +1,8 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
+using Co.EntityFrameworkCore.Metadata;
+using Co.EntityFrameworkCore.Metadata.Internal;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -9,9 +11,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore.Utilities;
 
 // ReSharper disable once CheckNamespace
-namespace Microsoft.EntityFrameworkCore
+namespace Co.EntityFrameworkCore
 {
-    public static class SqlServerPropertyBuilderExtensions
+    public static class OraclePropertyBuilderExtensions
     {
         public static PropertyBuilder ForSqlServerHasColumnName(
             [NotNull] this PropertyBuilder propertyBuilder,
@@ -20,7 +22,7 @@ namespace Microsoft.EntityFrameworkCore
             Check.NotNull(propertyBuilder, nameof(propertyBuilder));
             Check.NullButNotEmpty(name, nameof(name));
 
-            propertyBuilder.Metadata.SqlServer().ColumnName = name;
+            propertyBuilder.Metadata.Oracle().ColumnName = name;
 
             return propertyBuilder;
         }
@@ -37,7 +39,7 @@ namespace Microsoft.EntityFrameworkCore
             Check.NotNull(propertyBuilder, nameof(propertyBuilder));
             Check.NullButNotEmpty(typeName, nameof(typeName));
 
-            propertyBuilder.Metadata.SqlServer().ColumnType = typeName;
+            propertyBuilder.Metadata.Oracle().ColumnType = typeName;
 
             return propertyBuilder;
         }
@@ -55,7 +57,7 @@ namespace Microsoft.EntityFrameworkCore
             Check.NullButNotEmpty(sql, nameof(sql));
 
             var internalPropertyBuilder = propertyBuilder.GetInfrastructure<InternalPropertyBuilder>();
-            internalPropertyBuilder.SqlServer(ConfigurationSource.Explicit).DefaultValueSql(sql);
+            internalPropertyBuilder.Oracle(ConfigurationSource.Explicit).DefaultValueSql(sql);
 
             return propertyBuilder;
         }
@@ -72,7 +74,7 @@ namespace Microsoft.EntityFrameworkCore
             Check.NotNull(propertyBuilder, nameof(propertyBuilder));
 
             var internalPropertyBuilder = propertyBuilder.GetInfrastructure<InternalPropertyBuilder>();
-            internalPropertyBuilder.SqlServer(ConfigurationSource.Explicit).DefaultValue(value);
+            internalPropertyBuilder.Oracle(ConfigurationSource.Explicit).DefaultValue(value);
 
             return propertyBuilder;
         }
@@ -90,7 +92,7 @@ namespace Microsoft.EntityFrameworkCore
             Check.NullButNotEmpty(sql, nameof(sql));
 
             var internalPropertyBuilder = propertyBuilder.GetInfrastructure<InternalPropertyBuilder>();
-            internalPropertyBuilder.SqlServer(ConfigurationSource.Explicit).ComputedColumnSql(sql);
+            internalPropertyBuilder.Oracle(ConfigurationSource.Explicit).ComputedColumnSql(sql);
 
             return propertyBuilder;
         }
@@ -111,20 +113,20 @@ namespace Microsoft.EntityFrameworkCore
 
             var property = propertyBuilder.Metadata;
 
-            name = name ?? SqlServerModelAnnotations.DefaultHiLoSequenceName;
+            name = name ?? OracleModelAnnotations.DefaultHiLoSequenceName;
 
             var model = property.DeclaringEntityType.Model;
 
-            if (model.SqlServer().FindSequence(name, schema) == null)
+            if (model.Oracle().FindSequence(name, schema) == null)
             {
-                model.SqlServer().GetOrAddSequence(name, schema).IncrementBy = 10;
+                model.Oracle().GetOrAddSequence(name, schema).IncrementBy = 10;
             }
 
-            property.SqlServer().ValueGenerationStrategy = SqlServerValueGenerationStrategy.SequenceHiLo;
+            property.Oracle().ValueGenerationStrategy = OracleValueGenerationStrategy.SequenceHiLo;
             property.ValueGenerated = ValueGenerated.OnAdd;
             property.RequiresValueGenerator = true;
-            property.SqlServer().HiLoSequenceName = name;
-            property.SqlServer().HiLoSequenceSchema = schema;
+            property.Oracle().HiLoSequenceName = name;
+            property.Oracle().HiLoSequenceSchema = schema;
 
             return propertyBuilder;
         }
@@ -142,11 +144,11 @@ namespace Microsoft.EntityFrameworkCore
 
             var property = propertyBuilder.Metadata;
 
-            property.SqlServer().ValueGenerationStrategy = SqlServerValueGenerationStrategy.IdentityColumn;
+            property.Oracle().ValueGenerationStrategy = OracleValueGenerationStrategy.IdentityColumn;
             property.ValueGenerated = ValueGenerated.OnAdd;
             property.RequiresValueGenerator = true;
-            property.SqlServer().HiLoSequenceName = null;
-            property.SqlServer().HiLoSequenceSchema = null;
+            property.Oracle().HiLoSequenceName = null;
+            property.Oracle().HiLoSequenceSchema = null;
 
             return propertyBuilder;
         }

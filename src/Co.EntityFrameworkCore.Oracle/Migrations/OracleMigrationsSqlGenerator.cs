@@ -6,18 +6,21 @@ using System.Text;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.EntityFrameworkCore.Migrations.Operations;
+using Co.EntityFrameworkCore.Metadata.Internal;
+using Co.EntityFrameworkCore.Migrations.Operations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Utilities;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Migrations.Operations;
+using Co.EntityFrameworkCore.Metadata;
 
-namespace Microsoft.EntityFrameworkCore.Migrations
+namespace Co.EntityFrameworkCore.Migrations
 {
-    public class SqlServerMigrationsSqlGenerator : MigrationsSqlGenerator
+    public class OracleMigrationsSqlGenerator : MigrationsSqlGenerator
     {
         private int _variableCounter;
 
-        public SqlServerMigrationsSqlGenerator(
+        public OracleMigrationsSqlGenerator(
             [NotNull] IRelationalCommandBuilderFactory commandBuilderFactory,
             [NotNull] ISqlGenerationHelper sqlGenerationHelper,
             [NotNull] IRelationalTypeMapper typeMapper,
@@ -31,8 +34,8 @@ namespace Microsoft.EntityFrameworkCore.Migrations
             Check.NotNull(operation, nameof(operation));
             Check.NotNull(builder, nameof(builder));
 
-            var createDatabaseOperation = operation as SqlServerCreateDatabaseOperation;
-            var dropDatabaseOperation = operation as SqlServerDropDatabaseOperation;
+            var createDatabaseOperation = operation as OracleCreateDatabaseOperation;
+            var dropDatabaseOperation = operation as OracleDropDatabaseOperation;
             if (createDatabaseOperation != null)
             {
                 Generate(createDatabaseOperation, model, builder);
@@ -202,7 +205,7 @@ namespace Microsoft.EntityFrameworkCore.Migrations
 
             base.Generate(operation, model, builder, terminate: false);
 
-            var clustered = operation[SqlServerFullAnnotationNames.Instance.Clustered] as bool?;
+            var clustered = operation[OracleFullAnnotationNames.Instance.Clustered] as bool?;
             if (operation.IsUnique
                 && (clustered != true))
             {
@@ -244,7 +247,7 @@ namespace Microsoft.EntityFrameworkCore.Migrations
         }
 
         protected virtual void Generate(
-            [NotNull] SqlServerCreateDatabaseOperation operation,
+            [NotNull] OracleCreateDatabaseOperation operation,
             [CanBeNull] IModel model,
             [NotNull] MigrationCommandListBuilder builder)
         {
@@ -265,7 +268,7 @@ namespace Microsoft.EntityFrameworkCore.Migrations
         }
 
         protected virtual void Generate(
-            [NotNull] SqlServerDropDatabaseOperation operation,
+            [NotNull] OracleDropDatabaseOperation operation,
             [CanBeNull] IModel model,
             [NotNull] MigrationCommandListBuilder builder)
         {
@@ -353,7 +356,7 @@ namespace Microsoft.EntityFrameworkCore.Migrations
             MigrationCommandListBuilder builder)
         {
             var valueGenerationStrategy = annotatable[
-                SqlServerFullAnnotationNames.Instance.ValueGenerationStrategy] as SqlServerValueGenerationStrategy?;
+                OracleFullAnnotationNames.Instance.ValueGenerationStrategy] as OracleValueGenerationStrategy?;
 
             ColumnDefinition(
                 schema,
@@ -365,7 +368,7 @@ namespace Microsoft.EntityFrameworkCore.Migrations
                 defaultValue,
                 defaultValueSql,
                 computedColumnSql,
-                valueGenerationStrategy == SqlServerValueGenerationStrategy.IdentityColumn,
+                valueGenerationStrategy == OracleValueGenerationStrategy.IdentityColumn,
                 annotatable,
                 model,
                 builder);
@@ -472,7 +475,7 @@ namespace Microsoft.EntityFrameworkCore.Migrations
             Check.NotNull(operation, nameof(operation));
             Check.NotNull(builder, nameof(builder));
 
-            var clustered = operation[SqlServerFullAnnotationNames.Instance.Clustered] as bool?;
+            var clustered = operation[OracleFullAnnotationNames.Instance.Clustered] as bool?;
             if (clustered.HasValue)
             {
                 builder.Append(clustered.Value ? "CLUSTERED " : "NONCLUSTERED ");

@@ -8,10 +8,12 @@ using System.Text;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Update;
+using Microsoft.EntityFrameworkCore;
 
-namespace Microsoft.EntityFrameworkCore.Update.Internal
+namespace Co.EntityFrameworkCore.Update.Internal
 {
-    public class SqlServerModificationCommandBatch : AffectedCountModificationCommandBatch
+    public class OracleModificationCommandBatch : AffectedCountModificationCommandBatch
     {
         private const int DefaultNetworkPacketSizeBytes = 4096;
         private const int MaxScriptLength = 65536 * DefaultNetworkPacketSizeBytes / 2;
@@ -22,11 +24,11 @@ namespace Microsoft.EntityFrameworkCore.Update.Internal
         private readonly List<ModificationCommand> _bulkInsertCommands = new List<ModificationCommand>();
         private int _commandsLeftToLengthCheck = 50;
 
-        public SqlServerModificationCommandBatch(
+        public OracleModificationCommandBatch(
             [NotNull] IRelationalCommandBuilderFactory commandBuilderFactory,
             [NotNull] ISqlGenerationHelper sqlGenerationHelper,
             // ReSharper disable once SuggestBaseTypeForParameter
-            [NotNull] ISqlServerUpdateSqlGenerator updateSqlGenerator,
+            [NotNull] IOracleUpdateSqlGenerator updateSqlGenerator,
             [NotNull] IRelationalValueBufferFactoryFactory valueBufferFactoryFactory,
             [CanBeNull] int? maxBatchSize)
             : base(
@@ -44,7 +46,7 @@ namespace Microsoft.EntityFrameworkCore.Update.Internal
             _maxBatchSize = Math.Min(maxBatchSize ?? int.MaxValue, MaxRowCount);
         }
 
-        protected new virtual ISqlServerUpdateSqlGenerator UpdateSqlGenerator => (ISqlServerUpdateSqlGenerator)base.UpdateSqlGenerator;
+        protected new virtual IOracleUpdateSqlGenerator UpdateSqlGenerator => (IOracleUpdateSqlGenerator)base.UpdateSqlGenerator;
 
         protected override bool CanAddCommand(ModificationCommand modificationCommand)
         {

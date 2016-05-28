@@ -8,16 +8,28 @@ using System.Linq.Expressions;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.EntityFrameworkCore.Query.Expressions;
-using Microsoft.EntityFrameworkCore.Query.Expressions.Internal;
+using Co.EntityFrameworkCore.Query.Expressions.Internal;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Utilities;
 using Remotion.Linq.Parsing;
+using Microsoft.EntityFrameworkCore.Query.Sql;
 
-namespace Microsoft.EntityFrameworkCore.Query.Sql.Internal
+namespace Co.EntityFrameworkCore.Query.Sql.Internal
 {
-    public class SqlServerQuerySqlGenerator : DefaultQuerySqlGenerator, ISqlServerExpressionVisitor
+    /// <summary>
+    /// Oracle 查询 sql 生成器
+    /// </summary>
+    public class OracleQuerySqlGenerator : DefaultQuerySqlGenerator, IOracleExpressionVisitor
     {
-        public SqlServerQuerySqlGenerator(
+        /// <summary>
+        /// 初始化 Oracle 查询 sql 生成器
+        /// </summary>
+        /// <param name="relationalCommandBuilderFactory">相关命令构建工厂</param>
+        /// <param name="sqlGenerationHelper">sql 生成帮助器</param>
+        /// <param name="parameterNameGeneratorFactory">参数名生成器工厂</param>
+        /// <param name="relationalTypeMapper">相关类型映射</param>
+        /// <param name="selectExpression">select 查询表达式</param>
+        public OracleQuerySqlGenerator(
             [NotNull] IRelationalCommandBuilderFactory relationalCommandBuilderFactory,
             [NotNull] ISqlGenerationHelper sqlGenerationHelper,
             [NotNull] IParameterNameGeneratorFactory parameterNameGeneratorFactory,
@@ -31,7 +43,11 @@ namespace Microsoft.EntityFrameworkCore.Query.Sql.Internal
                 selectExpression)
         {
         }
-
+        /// <summary>
+        /// 访问横向连接
+        /// </summary>
+        /// <param name="lateralJoinExpression">横向连接表达式</param>
+        /// <returns></returns>
         public override Expression VisitLateralJoin(LateralJoinExpression lateralJoinExpression)
         {
             Check.NotNull(lateralJoinExpression, nameof(lateralJoinExpression));
@@ -42,7 +58,11 @@ namespace Microsoft.EntityFrameworkCore.Query.Sql.Internal
 
             return lateralJoinExpression;
         }
-
+        /// <summary>
+        /// 访问求数量
+        /// </summary>
+        /// <param name="countExpression">求数量表达式</param>
+        /// <returns></returns>
         public override Expression VisitCount(CountExpression countExpression)
         {
             Check.NotNull(countExpression, nameof(countExpression));
@@ -56,7 +76,10 @@ namespace Microsoft.EntityFrameworkCore.Query.Sql.Internal
 
             return base.VisitCount(countExpression);
         }
-
+        /// <summary>
+        /// 未知
+        /// </summary>
+        /// <param name="selectExpression">查询表达式</param>
         protected override void GenerateLimitOffset(SelectExpression selectExpression)
         {
             if (selectExpression.Projection.OfType<RowNumberExpression>().Any())
@@ -72,7 +95,10 @@ namespace Microsoft.EntityFrameworkCore.Query.Sql.Internal
 
             base.GenerateLimitOffset(selectExpression);
         }
-
+        /// <summary>
+        /// 投射访问
+        /// </summary>
+        /// <param name="projections">投射集合</param>
         protected override void VisitProjection(IReadOnlyList<Expression> projections)
         {
             var comparisonTransformer = new ProjectionComparisonTransformingVisitor();
@@ -80,7 +106,11 @@ namespace Microsoft.EntityFrameworkCore.Query.Sql.Internal
 
             base.VisitProjection(transformedProjections);
         }
-
+        /// <summary>
+        /// 行号访问
+        /// </summary>
+        /// <param name="rowNumberExpression">行号表达式</param>
+        /// <returns></returns>
         public virtual Expression VisitRowNumber(RowNumberExpression rowNumberExpression)
         {
             Check.NotNull(rowNumberExpression, nameof(rowNumberExpression));
@@ -91,7 +121,11 @@ namespace Microsoft.EntityFrameworkCore.Query.Sql.Internal
 
             return rowNumberExpression;
         }
-
+        /// <summary>
+        /// 日期部分表达式访问
+        /// </summary>
+        /// <param name="datePartExpression">日期部分表达式</param>
+        /// <returns></returns>
         public virtual Expression VisitDatePartExpression(DatePartExpression datePartExpression)
         {
             Check.NotNull(datePartExpression, nameof(datePartExpression));
@@ -103,7 +137,11 @@ namespace Microsoft.EntityFrameworkCore.Query.Sql.Internal
             Sql.Append(")");
             return datePartExpression;
         }
-
+        /// <summary>
+        /// Sql 函数访问
+        /// </summary>
+        /// <param name="sqlFunctionExpression">SQL 函数表达式</param>
+        /// <returns></returns>
         public override Expression VisitSqlFunction(SqlFunctionExpression sqlFunctionExpression)
         {
             if (sqlFunctionExpression.FunctionName.StartsWith("@@", StringComparison.Ordinal))
@@ -113,7 +151,9 @@ namespace Microsoft.EntityFrameworkCore.Query.Sql.Internal
             }
             return base.VisitSqlFunction(sqlFunctionExpression);
         }
-
+        /// <summary>
+        /// 投射比较转换访问器
+        /// </summary>
         private class ProjectionComparisonTransformingVisitor : RelinqExpressionVisitor
         {
             private bool _insideConditionalTest;

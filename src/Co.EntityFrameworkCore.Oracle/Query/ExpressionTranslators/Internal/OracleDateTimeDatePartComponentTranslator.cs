@@ -3,11 +3,12 @@
 
 using System;
 using System.Linq.Expressions;
-using Microsoft.EntityFrameworkCore.Query.Expressions.Internal;
+using Co.EntityFrameworkCore.Query.Expressions.Internal;
+using Microsoft.EntityFrameworkCore.Query.ExpressionTranslators;
 
-namespace Microsoft.EntityFrameworkCore.Query.ExpressionTranslators.Internal
+namespace Co.EntityFrameworkCore.Query.ExpressionTranslators.Internal
 {
-    public class SqlServerDateTimeDatePartComponentTranslator : IMemberTranslator
+    public class OracleDateTimeDatePartComponentTranslator : IMemberTranslator
     {
         public virtual Expression Translate(MemberExpression memberExpression)
         {

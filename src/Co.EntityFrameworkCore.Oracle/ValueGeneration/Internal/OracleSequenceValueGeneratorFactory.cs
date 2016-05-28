@@ -1,26 +1,27 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
-using System;
+using Co.EntityFrameworkCore.Storage.Internal;
+using Co.EntityFrameworkCore.Update.Internal;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.EntityFrameworkCore.Storage.Internal;
-using Microsoft.EntityFrameworkCore.Update.Internal;
 using Microsoft.EntityFrameworkCore.Utilities;
+using Microsoft.EntityFrameworkCore.ValueGeneration;
+using System;
 
-namespace Microsoft.EntityFrameworkCore.ValueGeneration.Internal
+namespace Co.EntityFrameworkCore.ValueGeneration.Internal
 {
-    public class SqlServerSequenceValueGeneratorFactory : ISqlServerSequenceValueGeneratorFactory
+    public class OracleSequenceValueGeneratorFactory : IOracleSequenceValueGeneratorFactory
     {
         private readonly IRawSqlCommandBuilder _rawSqlCommandBuilder;
-        private readonly ISqlServerUpdateSqlGenerator _sqlGenerator;
+        private readonly IOracleUpdateSqlGenerator _sqlGenerator;
 
-        public SqlServerSequenceValueGeneratorFactory(
+        public OracleSequenceValueGeneratorFactory(
             [NotNull] IRawSqlCommandBuilder rawSqlCommandBuilder,
-            [NotNull] ISqlServerUpdateSqlGenerator sqlGenerator)
+            [NotNull] IOracleUpdateSqlGenerator sqlGenerator)
         {
             Check.NotNull(rawSqlCommandBuilder, nameof(rawSqlCommandBuilder));
             Check.NotNull(sqlGenerator, nameof(sqlGenerator));
@@ -29,7 +30,7 @@ namespace Microsoft.EntityFrameworkCore.ValueGeneration.Internal
             _sqlGenerator = sqlGenerator;
         }
 
-        public virtual ValueGenerator Create(IProperty property, SqlServerSequenceValueGeneratorState generatorState, ISqlServerConnection connection)
+        public virtual ValueGenerator Create(IProperty property, OracleSequenceValueGeneratorState generatorState, IOracleConnection connection)
         {
             Check.NotNull(property, nameof(property));
             Check.NotNull(generatorState, nameof(generatorState));
@@ -39,51 +40,51 @@ namespace Microsoft.EntityFrameworkCore.ValueGeneration.Internal
 
             if (type == typeof(long))
             {
-                return new SqlServerSequenceHiLoValueGenerator<long>(_rawSqlCommandBuilder, _sqlGenerator, generatorState, connection);
+                return new OracleSequenceHiLoValueGenerator<long>(_rawSqlCommandBuilder, _sqlGenerator, generatorState, connection);
             }
 
             if (type == typeof(int))
             {
-                return new SqlServerSequenceHiLoValueGenerator<int>(_rawSqlCommandBuilder, _sqlGenerator, generatorState, connection);
+                return new OracleSequenceHiLoValueGenerator<int>(_rawSqlCommandBuilder, _sqlGenerator, generatorState, connection);
             }
 
             if (type == typeof(short))
             {
-                return new SqlServerSequenceHiLoValueGenerator<short>(_rawSqlCommandBuilder, _sqlGenerator, generatorState, connection);
+                return new OracleSequenceHiLoValueGenerator<short>(_rawSqlCommandBuilder, _sqlGenerator, generatorState, connection);
             }
 
             if (type == typeof(byte))
             {
-                return new SqlServerSequenceHiLoValueGenerator<byte>(_rawSqlCommandBuilder, _sqlGenerator, generatorState, connection);
+                return new OracleSequenceHiLoValueGenerator<byte>(_rawSqlCommandBuilder, _sqlGenerator, generatorState, connection);
             }
 
             if (type == typeof(char))
             {
-                return new SqlServerSequenceHiLoValueGenerator<char>(_rawSqlCommandBuilder, _sqlGenerator, generatorState, connection);
+                return new OracleSequenceHiLoValueGenerator<char>(_rawSqlCommandBuilder, _sqlGenerator, generatorState, connection);
             }
 
             if (type == typeof(ulong))
             {
-                return new SqlServerSequenceHiLoValueGenerator<ulong>(_rawSqlCommandBuilder, _sqlGenerator, generatorState, connection);
+                return new OracleSequenceHiLoValueGenerator<ulong>(_rawSqlCommandBuilder, _sqlGenerator, generatorState, connection);
             }
 
             if (type == typeof(uint))
             {
-                return new SqlServerSequenceHiLoValueGenerator<uint>(_rawSqlCommandBuilder, _sqlGenerator, generatorState, connection);
+                return new OracleSequenceHiLoValueGenerator<uint>(_rawSqlCommandBuilder, _sqlGenerator, generatorState, connection);
             }
 
             if (type == typeof(ushort))
             {
-                return new SqlServerSequenceHiLoValueGenerator<ushort>(_rawSqlCommandBuilder, _sqlGenerator, generatorState, connection);
+                return new OracleSequenceHiLoValueGenerator<ushort>(_rawSqlCommandBuilder, _sqlGenerator, generatorState, connection);
             }
 
             if (type == typeof(sbyte))
             {
-                return new SqlServerSequenceHiLoValueGenerator<sbyte>(_rawSqlCommandBuilder, _sqlGenerator, generatorState, connection);
+                return new OracleSequenceHiLoValueGenerator<sbyte>(_rawSqlCommandBuilder, _sqlGenerator, generatorState, connection);
             }
 
             throw new ArgumentException(CoreStrings.InvalidValueGeneratorFactoryProperty(
-                nameof(SqlServerSequenceValueGeneratorFactory), property.Name, property.DeclaringEntityType.DisplayName()));
+                nameof(OracleSequenceValueGeneratorFactory), property.Name, property.DeclaringEntityType.DisplayName()));
         }
     }
 }

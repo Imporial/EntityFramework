@@ -1,20 +1,22 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
-namespace Microsoft.EntityFrameworkCore.Metadata.Internal
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+
+namespace Co.EntityFrameworkCore.Metadata.Internal
 {
-    public class SqlServerFullAnnotationNames : RelationalFullAnnotationNames
+    public class OracleFullAnnotationNames : RelationalFullAnnotationNames
     {
-        protected SqlServerFullAnnotationNames(string prefix)
+        protected OracleFullAnnotationNames(string prefix)
             : base(prefix)
         {
-            Clustered = prefix + SqlServerAnnotationNames.Clustered;
-            ValueGenerationStrategy = prefix + SqlServerAnnotationNames.ValueGenerationStrategy;
-            HiLoSequenceName = prefix + SqlServerAnnotationNames.HiLoSequenceName;
-            HiLoSequenceSchema = prefix + SqlServerAnnotationNames.HiLoSequenceSchema;
+            Clustered = prefix + OracleAnnotationNames.Clustered;
+            ValueGenerationStrategy = prefix + OracleAnnotationNames.ValueGenerationStrategy;
+            HiLoSequenceName = prefix + OracleAnnotationNames.HiLoSequenceName;
+            HiLoSequenceSchema = prefix + OracleAnnotationNames.HiLoSequenceSchema;
         }
 
-        public new static SqlServerFullAnnotationNames Instance { get; } = new SqlServerFullAnnotationNames(SqlServerAnnotationNames.Prefix);
+        public new static OracleFullAnnotationNames Instance { get; } = new OracleFullAnnotationNames(OracleAnnotationNames.Prefix);
 
         public readonly string Clustered;
         public readonly string ValueGenerationStrategy;

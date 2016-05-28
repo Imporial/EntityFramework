@@ -1,29 +1,30 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
-using System;
-using System.Globalization;
+using Co.EntityFrameworkCore.Storage.Internal;
+using Co.EntityFrameworkCore.Update.Internal;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.EntityFrameworkCore.Storage.Internal;
-using Microsoft.EntityFrameworkCore.Update.Internal;
 using Microsoft.EntityFrameworkCore.Utilities;
+using Microsoft.EntityFrameworkCore.ValueGeneration;
+using System;
+using System.Globalization;
 
-namespace Microsoft.EntityFrameworkCore.ValueGeneration.Internal
+namespace Co.EntityFrameworkCore.ValueGeneration.Internal
 {
-    public class SqlServerSequenceHiLoValueGenerator<TValue> : HiLoValueGenerator<TValue>
+    public class OracleSequenceHiLoValueGenerator<TValue> : HiLoValueGenerator<TValue>
     {
         private readonly IRawSqlCommandBuilder _rawSqlCommandBuilder;
-        private readonly ISqlServerUpdateSqlGenerator _sqlGenerator;
-        private readonly ISqlServerConnection _connection;
+        private readonly IOracleUpdateSqlGenerator _sqlGenerator;
+        private readonly IOracleConnection _connection;
         private readonly ISequence _sequence;
 
-        public SqlServerSequenceHiLoValueGenerator(
+        public OracleSequenceHiLoValueGenerator(
             [NotNull] IRawSqlCommandBuilder rawSqlCommandBuilder,
-            [NotNull] ISqlServerUpdateSqlGenerator sqlGenerator,
-            [NotNull] SqlServerSequenceValueGeneratorState generatorState,
-            [NotNull] ISqlServerConnection connection)
+            [NotNull] IOracleUpdateSqlGenerator sqlGenerator,
+            [NotNull] OracleSequenceValueGeneratorState generatorState,
+            [NotNull] IOracleConnection connection)
             : base(generatorState)
         {
             Check.NotNull(rawSqlCommandBuilder, nameof(rawSqlCommandBuilder));

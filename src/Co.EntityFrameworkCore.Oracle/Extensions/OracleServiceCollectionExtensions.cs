@@ -1,27 +1,28 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
+using Co.EntityFrameworkCore.Infrastructure.Internal;
+using Co.EntityFrameworkCore.Metadata;
+using Co.EntityFrameworkCore.Metadata.Conventions;
+using Co.EntityFrameworkCore.Migrations;
+using Co.EntityFrameworkCore.Migrations.Internal;
+using Co.EntityFrameworkCore.Query.ExpressionTranslators.Internal;
+using Co.EntityFrameworkCore.Query.Internal;
+using Co.EntityFrameworkCore.Query.Sql.Internal;
+using Co.EntityFrameworkCore.Storage.Internal;
+using Co.EntityFrameworkCore.Update.Internal;
+using Co.EntityFrameworkCore.ValueGeneration.Internal;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
-using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Migrations.Internal;
-using Microsoft.EntityFrameworkCore.Query.ExpressionTranslators.Internal;
-using Microsoft.EntityFrameworkCore.Query.Internal;
-using Microsoft.EntityFrameworkCore.Query.Sql.Internal;
 using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.EntityFrameworkCore.Storage.Internal;
-using Microsoft.EntityFrameworkCore.Update.Internal;
 using Microsoft.EntityFrameworkCore.Utilities;
-using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 // ReSharper disable once CheckNamespace
-namespace Microsoft.Extensions.DependencyInjection
+namespace Co.Extensions.DependencyInjection
 {
-    public static class SqlServerServiceCollectionExtensions
+    public static class OracleServiceCollectionExtensions
     {
         /// <summary>
         ///     <para>
@@ -52,34 +53,34 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns>
         ///     A builder that allows further Entity Framework specific setup of the <see cref="IServiceCollection" />.
         /// </returns>
-        public static IServiceCollection AddEntityFrameworkSqlServer([NotNull] this IServiceCollection services)
+        public static IServiceCollection AddEntityFrameworkOracle([NotNull] this IServiceCollection services)
         {
             Check.NotNull(services, nameof(services));
 
             services.AddRelational();
 
             services.TryAddEnumerable(ServiceDescriptor
-                .Singleton<IDatabaseProvider, DatabaseProvider<SqlServerDatabaseProviderServices, SqlServerOptionsExtension>>());
+                .Singleton<IDatabaseProvider, DatabaseProvider<OracleDatabaseProviderServices, OracleOptionsExtension>>());
 
             services.TryAdd(new ServiceCollection()
-                .AddSingleton<ISqlServerValueGeneratorCache, SqlServerValueGeneratorCache>()
-                .AddSingleton<SqlServerTypeMapper>()
-                .AddSingleton<SqlServerSqlGenerationHelper>()
-                .AddSingleton<SqlServerModelSource>()
-                .AddSingleton<SqlServerAnnotationProvider>()
-                .AddSingleton<SqlServerMigrationsAnnotationProvider>()
-                .AddScoped<SqlServerConventionSetBuilder>()
-                .AddScoped<ISqlServerUpdateSqlGenerator, SqlServerUpdateSqlGenerator>()
-                .AddScoped<ISqlServerSequenceValueGeneratorFactory, SqlServerSequenceValueGeneratorFactory>()
-                .AddScoped<SqlServerModificationCommandBatchFactory>()
-                .AddScoped<SqlServerValueGeneratorSelector>()
-                .AddScoped<SqlServerDatabaseProviderServices>()
-                .AddScoped<ISqlServerConnection, SqlServerConnection>()
-                .AddScoped<SqlServerMigrationsSqlGenerator>()
-                .AddScoped<SqlServerDatabaseCreator>()
-                .AddScoped<SqlServerHistoryRepository>()
-                .AddScoped<SqlServerQueryModelVisitorFactory>()
-                .AddScoped<SqlServerCompiledQueryCacheKeyGenerator>()
+                .AddSingleton<IOracleValueGeneratorCache, OracleValueGeneratorCache>()
+                .AddSingleton<OracleTypeMapper>()
+                .AddSingleton<OracleSqlGenerationHelper>()
+                .AddSingleton<OracleModelSource>()
+                .AddSingleton<OracleAnnotationProvider>()
+                .AddSingleton<OracleMigrationsAnnotationProvider>()
+                .AddScoped<OracleConventionSetBuilder>()
+                .AddScoped<IOracleUpdateSqlGenerator, OracleUpdateSqlGenerator>()
+                .AddScoped<IOracleSequenceValueGeneratorFactory, OracleSequenceValueGeneratorFactory>()
+                .AddScoped<OracleModificationCommandBatchFactory>()
+                .AddScoped<OracleValueGeneratorSelector>()
+                .AddScoped<OracleDatabaseProviderServices>()
+                .AddScoped<IOracleConnection, OracleConnection>()
+                .AddScoped<OracleMigrationsSqlGenerator>()
+                .AddScoped<OracleDatabaseCreator>()
+                .AddScoped<OracleHistoryRepository>()
+                .AddScoped<OracleQueryModelVisitorFactory>()
+                .AddScoped<OracleCompiledQueryCacheKeyGenerator>()
                 .AddQuery());
 
             return services;
@@ -87,9 +88,9 @@ namespace Microsoft.Extensions.DependencyInjection
 
         private static IServiceCollection AddQuery(this IServiceCollection serviceCollection)
             => serviceCollection
-                .AddScoped<SqlServerQueryCompilationContextFactory>()
-                .AddScoped<SqlServerCompositeMemberTranslator>()
-                .AddScoped<SqlServerCompositeMethodCallTranslator>()
-                .AddScoped<SqlServerQuerySqlGeneratorFactory>();
+                .AddScoped<OracleQueryCompilationContextFactory>()
+                .AddScoped<OracleCompositeMemberTranslator>()
+                .AddScoped<OracleCompositeMethodCallTranslator>()
+                .AddScoped<OracleQuerySqlGeneratorFactory>();
     }
 }

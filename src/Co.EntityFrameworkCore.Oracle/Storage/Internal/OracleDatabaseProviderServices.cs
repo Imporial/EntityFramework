@@ -5,54 +5,57 @@ using System;
 using System.Reflection;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
+using Co.EntityFrameworkCore.Infrastructure.Internal;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using Co.EntityFrameworkCore.Metadata.Conventions;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions.Internal;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Migrations.Internal;
+using Co.EntityFrameworkCore.Migrations.Internal;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.Query.ExpressionTranslators;
-using Microsoft.EntityFrameworkCore.Query.ExpressionTranslators.Internal;
-using Microsoft.EntityFrameworkCore.Query.Internal;
+using Co.EntityFrameworkCore.Query.ExpressionTranslators.Internal;
+using Co.EntityFrameworkCore.Query.Internal;
 using Microsoft.EntityFrameworkCore.Query.Sql;
-using Microsoft.EntityFrameworkCore.Query.Sql.Internal;
+using Co.EntityFrameworkCore.Query.Sql.Internal;
 using Microsoft.EntityFrameworkCore.Update;
-using Microsoft.EntityFrameworkCore.Update.Internal;
+using Co.EntityFrameworkCore.Update.Internal;
 using Microsoft.EntityFrameworkCore.ValueGeneration;
-using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
+using Co.EntityFrameworkCore.ValueGeneration.Internal;
+using Microsoft.EntityFrameworkCore.Storage;
+using Co.EntityFrameworkCore.Migrations;
+using Co.EntityFrameworkCore.Metadata;
 
-namespace Microsoft.EntityFrameworkCore.Storage.Internal
+namespace Co.EntityFrameworkCore.Storage.Internal
 {
-    public class SqlServerDatabaseProviderServices : RelationalDatabaseProviderServices
+    public class OracleDatabaseProviderServices : RelationalDatabaseProviderServices
     {
-        public SqlServerDatabaseProviderServices([NotNull] IServiceProvider services)
+        public OracleDatabaseProviderServices([NotNull] IServiceProvider services)
             : base(services)
         {
         }
 
         public override string InvariantName => GetType().GetTypeInfo().Assembly.GetName().Name;
-        public override IDatabaseCreator Creator => GetService<SqlServerDatabaseCreator>();
-        public override IRelationalConnection RelationalConnection => GetService<ISqlServerConnection>();
-        public override ISqlGenerationHelper SqlGenerationHelper => GetService<SqlServerSqlGenerationHelper>();
-        public override IValueGeneratorSelector ValueGeneratorSelector => GetService<SqlServerValueGeneratorSelector>();
-        public override IRelationalDatabaseCreator RelationalDatabaseCreator => GetService<SqlServerDatabaseCreator>();
-        public override IConventionSetBuilder ConventionSetBuilder => GetService<SqlServerConventionSetBuilder>();
-        public override IMigrationsAnnotationProvider MigrationsAnnotationProvider => GetService<SqlServerMigrationsAnnotationProvider>();
-        public override IHistoryRepository HistoryRepository => GetService<SqlServerHistoryRepository>();
-        public override IMigrationsSqlGenerator MigrationsSqlGenerator => GetService<SqlServerMigrationsSqlGenerator>();
-        public override IModelSource ModelSource => GetService<SqlServerModelSource>();
-        public override IUpdateSqlGenerator UpdateSqlGenerator => GetService<ISqlServerUpdateSqlGenerator>();
-        public override IValueGeneratorCache ValueGeneratorCache => GetService<ISqlServerValueGeneratorCache>();
-        public override IRelationalTypeMapper TypeMapper => GetService<SqlServerTypeMapper>();
-        public override IModificationCommandBatchFactory ModificationCommandBatchFactory => GetService<SqlServerModificationCommandBatchFactory>();
+        public override IDatabaseCreator Creator => GetService<OracleDatabaseCreator>();
+        public override IRelationalConnection RelationalConnection => GetService<IOracleConnection>();
+        public override ISqlGenerationHelper SqlGenerationHelper => GetService<OracleSqlGenerationHelper>();
+        public override IValueGeneratorSelector ValueGeneratorSelector => GetService<OracleValueGeneratorSelector>();
+        public override IRelationalDatabaseCreator RelationalDatabaseCreator => GetService<OracleDatabaseCreator>();
+        public override IConventionSetBuilder ConventionSetBuilder => GetService<OracleConventionSetBuilder>();
+        public override IMigrationsAnnotationProvider MigrationsAnnotationProvider => GetService<OracleMigrationsAnnotationProvider>();
+        public override IHistoryRepository HistoryRepository => GetService<OracleHistoryRepository>();
+        public override IMigrationsSqlGenerator MigrationsSqlGenerator => GetService<OracleMigrationsSqlGenerator>();
+        public override IModelSource ModelSource => GetService<OracleModelSource>();
+        public override IUpdateSqlGenerator UpdateSqlGenerator => GetService<IOracleUpdateSqlGenerator>();
+        public override IValueGeneratorCache ValueGeneratorCache => GetService<IOracleValueGeneratorCache>();
+        public override IRelationalTypeMapper TypeMapper => GetService<OracleTypeMapper>();
+        public override IModificationCommandBatchFactory ModificationCommandBatchFactory => GetService<OracleModificationCommandBatchFactory>();
         public override IRelationalValueBufferFactoryFactory ValueBufferFactoryFactory => GetService<UntypedRelationalValueBufferFactoryFactory>();
-        public override IRelationalAnnotationProvider AnnotationProvider => GetService<SqlServerAnnotationProvider>();
-        public override IMethodCallTranslator CompositeMethodCallTranslator => GetService<SqlServerCompositeMethodCallTranslator>();
-        public override IMemberTranslator CompositeMemberTranslator => GetService<SqlServerCompositeMemberTranslator>();
-        public override IQueryCompilationContextFactory QueryCompilationContextFactory => GetService<SqlServerQueryCompilationContextFactory>();
-        public override IQuerySqlGeneratorFactory QuerySqlGeneratorFactory => GetService<SqlServerQuerySqlGeneratorFactory>();
-        public override IEntityQueryModelVisitorFactory EntityQueryModelVisitorFactory => GetService<SqlServerQueryModelVisitorFactory>();
-        public override ICompiledQueryCacheKeyGenerator CompiledQueryCacheKeyGenerator => GetService<SqlServerCompiledQueryCacheKeyGenerator>();
+        public override IRelationalAnnotationProvider AnnotationProvider => GetService<OracleAnnotationProvider>();
+        public override IMethodCallTranslator CompositeMethodCallTranslator => GetService<OracleCompositeMethodCallTranslator>();
+        public override IMemberTranslator CompositeMemberTranslator => GetService<OracleCompositeMemberTranslator>();
+        public override IQueryCompilationContextFactory QueryCompilationContextFactory => GetService<OracleQueryCompilationContextFactory>();
+        public override IQuerySqlGeneratorFactory QuerySqlGeneratorFactory => GetService<OracleQuerySqlGeneratorFactory>();
+        public override IEntityQueryModelVisitorFactory EntityQueryModelVisitorFactory => GetService<OracleQueryModelVisitorFactory>();
+        public override ICompiledQueryCacheKeyGenerator CompiledQueryCacheKeyGenerator => GetService<OracleCompiledQueryCacheKeyGenerator>();
     }
 }

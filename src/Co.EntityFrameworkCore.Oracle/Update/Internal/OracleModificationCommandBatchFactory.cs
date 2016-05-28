@@ -4,24 +4,25 @@
 using System.Linq;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
+using Co.EntityFrameworkCore.Infrastructure.Internal;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Update;
 using Microsoft.EntityFrameworkCore.Utilities;
 
-namespace Microsoft.EntityFrameworkCore.Update.Internal
+namespace Co.EntityFrameworkCore.Update.Internal
 {
-    public class SqlServerModificationCommandBatchFactory : IModificationCommandBatchFactory
+    public class OracleModificationCommandBatchFactory : IModificationCommandBatchFactory
     {
         private readonly IRelationalCommandBuilderFactory _commandBuilderFactory;
         private readonly ISqlGenerationHelper _sqlGenerationHelper;
-        private readonly ISqlServerUpdateSqlGenerator _updateSqlGenerator;
+        private readonly IOracleUpdateSqlGenerator _updateSqlGenerator;
         private readonly IRelationalValueBufferFactoryFactory _valueBufferFactoryFactory;
         private readonly IDbContextOptions _options;
 
-        public SqlServerModificationCommandBatchFactory(
+        public OracleModificationCommandBatchFactory(
             [NotNull] IRelationalCommandBuilderFactory commandBuilderFactory,
             [NotNull] ISqlGenerationHelper sqlGenerationHelper,
-            [NotNull] ISqlServerUpdateSqlGenerator updateSqlGenerator,
+            [NotNull] IOracleUpdateSqlGenerator updateSqlGenerator,
             [NotNull] IRelationalValueBufferFactoryFactory valueBufferFactoryFactory,
             [NotNull] IDbContextOptions options)
         {
@@ -40,9 +41,9 @@ namespace Microsoft.EntityFrameworkCore.Update.Internal
 
         public virtual ModificationCommandBatch Create()
         {
-            var optionsExtension = _options.Extensions.OfType<SqlServerOptionsExtension>().FirstOrDefault();
+            var optionsExtension = _options.Extensions.OfType<OracleOptionsExtension>().FirstOrDefault();
 
-            return new SqlServerModificationCommandBatch(
+            return new OracleModificationCommandBatch(
                 _commandBuilderFactory,
                 _sqlGenerationHelper,
                 _updateSqlGenerator,

@@ -5,12 +5,13 @@ using System;
 using System.Data;
 using System.Data.Common;
 using JetBrains.Annotations;
+using Microsoft.EntityFrameworkCore.Storage;
 
-namespace Microsoft.EntityFrameworkCore.Storage.Internal
+namespace Co.EntityFrameworkCore.Storage.Internal
 {
-    public class SqlServerMaxLengthMapping : RelationalTypeMapping
+    public class OracleMaxLengthMapping : RelationalTypeMapping
     {
-        public SqlServerMaxLengthMapping(
+        public OracleMaxLengthMapping(
             [NotNull] string storeType,
             [NotNull] Type clrType,
             DbType? dbType = null)
@@ -18,7 +19,7 @@ namespace Microsoft.EntityFrameworkCore.Storage.Internal
         {
         }
 
-        public SqlServerMaxLengthMapping(
+        public OracleMaxLengthMapping(
             [NotNull] string storeType,
             [NotNull] Type clrType,
             DbType? dbType,
@@ -36,7 +37,7 @@ namespace Microsoft.EntityFrameworkCore.Storage.Internal
                 : size.HasValue && size < 8000 ? size.Value : 8000;
 
         public override RelationalTypeMapping CreateCopy(string storeType, int? size)
-            => new SqlServerMaxLengthMapping(
+            => new OracleMaxLengthMapping(
                 storeType,
                 ClrType,
                 DbType,

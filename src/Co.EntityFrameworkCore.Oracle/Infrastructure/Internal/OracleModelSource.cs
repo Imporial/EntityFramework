@@ -2,14 +2,16 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using JetBrains.Annotations;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions.Internal;
 
-namespace Microsoft.EntityFrameworkCore.Infrastructure.Internal
+namespace Co.EntityFrameworkCore.Infrastructure.Internal
 {
-    public class SqlServerModelSource : RelationalModelSource
+    public class OracleModelSource : RelationalModelSource
     {
-        public SqlServerModelSource(
+        public OracleModelSource(
             [NotNull] IDbSetFinder setFinder,
             [NotNull] ICoreConventionSetBuilder coreConventionSetBuilder,
             [NotNull] IModelCustomizer modelCustomizer,

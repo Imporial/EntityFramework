@@ -4,31 +4,33 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using Microsoft.EntityFrameworkCore.Internal;
+using Co.EntityFrameworkCore.Internal;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Utilities;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore;
 
-namespace Microsoft.EntityFrameworkCore.Storage.Internal
+namespace Co.EntityFrameworkCore.Storage.Internal
 {
-    public class SqlServerTypeMapper : RelationalTypeMapper
+    public class OracleTypeMapper : RelationalTypeMapper
     {
-        private readonly SqlServerMaxLengthMapping _nvarcharmax 
-            = new SqlServerMaxLengthMapping("nvarchar(max)", typeof(string), dbType: null, unicode: true, size: null);
+        private readonly OracleMaxLengthMapping _nvarcharmax
+            = new OracleMaxLengthMapping("nvarchar(max)", typeof(string), dbType: null, unicode: true, size: null);
 
-        private readonly SqlServerMaxLengthMapping _nvarchar450 
-            = new SqlServerMaxLengthMapping("nvarchar(450)", typeof(string), dbType: null, unicode: true, size: 450);
+        private readonly OracleMaxLengthMapping _nvarchar450
+            = new OracleMaxLengthMapping("nvarchar(450)", typeof(string), dbType: null, unicode: true, size: 450);
 
-        private readonly SqlServerMaxLengthMapping _varcharmax
-            = new SqlServerMaxLengthMapping("varchar(max)", typeof(string), dbType: DbType.AnsiString, unicode: false, size: null, hasNonDefaultUnicode: true);
+        private readonly OracleMaxLengthMapping _varcharmax
+            = new OracleMaxLengthMapping("varchar(max)", typeof(string), dbType: DbType.AnsiString, unicode: false, size: null, hasNonDefaultUnicode: true);
 
-        private readonly SqlServerMaxLengthMapping _varchar900
-            = new SqlServerMaxLengthMapping("varchar(900)", typeof(string), dbType: DbType.AnsiString, unicode: false, size: 900, hasNonDefaultUnicode: true);
+        private readonly OracleMaxLengthMapping _varchar900
+            = new OracleMaxLengthMapping("varchar(900)", typeof(string), dbType: DbType.AnsiString, unicode: false, size: 900, hasNonDefaultUnicode: true);
 
-        private readonly SqlServerMaxLengthMapping _varbinarymax
-            = new SqlServerMaxLengthMapping("varbinary(max)", typeof(byte[]), dbType: DbType.Binary, unicode: false, size: null);
+        private readonly OracleMaxLengthMapping _varbinarymax
+            = new OracleMaxLengthMapping("varbinary(max)", typeof(byte[]), dbType: DbType.Binary, unicode: false, size: null);
 
-        private readonly SqlServerMaxLengthMapping _varbinary900
-            = new SqlServerMaxLengthMapping("varbinary(900)", typeof(byte[]), dbType: DbType.Binary, unicode: false, size: 900);
+        private readonly OracleMaxLengthMapping _varbinary900
+            = new OracleMaxLengthMapping("varbinary(900)", typeof(byte[]), dbType: DbType.Binary, unicode: false, size: 900);
 
         private readonly RelationalTypeMapping _rowversion
             = new RelationalTypeMapping("rowversion", typeof(byte[]), dbType: DbType.Binary, unicode: false, size: 8);
@@ -48,37 +50,37 @@ namespace Microsoft.EntityFrameworkCore.Storage.Internal
         private readonly RelationalTypeMapping _bit
             = new RelationalTypeMapping("bit", typeof(bool));
 
-        private readonly SqlServerMaxLengthMapping _nchar 
-            = new SqlServerMaxLengthMapping("nchar", typeof(string), dbType: DbType.StringFixedLength, unicode: true, size: null);
+        private readonly OracleMaxLengthMapping _nchar
+            = new OracleMaxLengthMapping("nchar", typeof(string), dbType: DbType.StringFixedLength, unicode: true, size: null);
 
-        private readonly SqlServerMaxLengthMapping _nvarchar 
-            = new SqlServerMaxLengthMapping("nvarchar", typeof(string), dbType: null, unicode: true, size: null);
+        private readonly OracleMaxLengthMapping _nvarchar
+            = new OracleMaxLengthMapping("nvarchar", typeof(string), dbType: null, unicode: true, size: null);
 
-        private readonly SqlServerMaxLengthMapping _char 
-            = new SqlServerMaxLengthMapping("char", typeof(string), dbType: DbType.AnsiStringFixedLength, unicode: false, size: null, hasNonDefaultUnicode: true);
+        private readonly OracleMaxLengthMapping _char
+            = new OracleMaxLengthMapping("char", typeof(string), dbType: DbType.AnsiStringFixedLength, unicode: false, size: null, hasNonDefaultUnicode: true);
 
-        private readonly SqlServerMaxLengthMapping _varchar 
-            = new SqlServerMaxLengthMapping("varchar", typeof(string), dbType: DbType.AnsiString, unicode: false, size: null, hasNonDefaultUnicode: true);
+        private readonly OracleMaxLengthMapping _varchar
+            = new OracleMaxLengthMapping("varchar", typeof(string), dbType: DbType.AnsiString, unicode: false, size: null, hasNonDefaultUnicode: true);
 
-        private readonly SqlServerMaxLengthMapping _varbinary 
-            = new SqlServerMaxLengthMapping("varbinary", typeof(byte[]), dbType: DbType.Binary);
+        private readonly OracleMaxLengthMapping _varbinary
+            = new OracleMaxLengthMapping("varbinary", typeof(byte[]), dbType: DbType.Binary);
 
-        private readonly SqlServerMaxLengthMapping _binary 
-            = new SqlServerMaxLengthMapping("binary", typeof(byte[]), dbType: DbType.Binary);
+        private readonly OracleMaxLengthMapping _binary
+            = new OracleMaxLengthMapping("binary", typeof(byte[]), dbType: DbType.Binary);
 
-        private readonly RelationalTypeMapping _datetime2 
+        private readonly RelationalTypeMapping _datetime2
             = new RelationalTypeMapping("datetime2", typeof(DateTime), dbType: DbType.DateTime2);
 
-        private readonly RelationalTypeMapping _double 
+        private readonly RelationalTypeMapping _double
             = new RelationalTypeMapping("float", typeof(double));
 
         private readonly RelationalTypeMapping _datetimeoffset
             = new RelationalTypeMapping("datetimeoffset", typeof(DateTimeOffset));
 
-        private readonly RelationalTypeMapping _real 
+        private readonly RelationalTypeMapping _real
             = new RelationalTypeMapping("real", typeof(float));
 
-        private readonly RelationalTypeMapping _uniqueidentifier 
+        private readonly RelationalTypeMapping _uniqueidentifier
             = new RelationalTypeMapping("uniqueidentifier", typeof(Guid));
 
         private readonly RelationalTypeMapping _decimal
@@ -88,13 +90,13 @@ namespace Microsoft.EntityFrameworkCore.Storage.Internal
             = new RelationalTypeMapping("time", typeof(TimeSpan));
 
         private readonly RelationalTypeMapping _xml
-            = new SqlServerMaxLengthMapping("xml", typeof(string), dbType: null, unicode: true, size: null);
+            = new OracleMaxLengthMapping("xml", typeof(string), dbType: null, unicode: true, size: null);
 
         private readonly Dictionary<string, RelationalTypeMapping> _storeTypeMappings;
         private readonly Dictionary<Type, RelationalTypeMapping> _clrTypeMappings;
         private readonly HashSet<string> _disallowedMappings;
 
-        public SqlServerTypeMapper()
+        public OracleTypeMapper()
         {
             _storeTypeMappings
                 = new Dictionary<string, RelationalTypeMapping>(StringComparer.OrdinalIgnoreCase)
@@ -185,7 +187,7 @@ namespace Microsoft.EntityFrameworkCore.Storage.Internal
                     _varbinarymax,
                     _varbinarymax,
                     _varbinary900,
-                    _rowversion, size => new SqlServerMaxLengthMapping(
+                    _rowversion, size => new OracleMaxLengthMapping(
                         "varbinary(" + size + ")",
                         typeof(byte[]),
                         DbType.Binary,
@@ -200,7 +202,7 @@ namespace Microsoft.EntityFrameworkCore.Storage.Internal
                     _varcharmax,
                     _varcharmax,
                     _varchar900,
-                    size => new SqlServerMaxLengthMapping(
+                    size => new OracleMaxLengthMapping(
                         "varchar(" + size + ")",
                         typeof(string),
                         dbType: DbType.AnsiString,
@@ -212,7 +214,7 @@ namespace Microsoft.EntityFrameworkCore.Storage.Internal
                     _nvarcharmax,
                     _nvarcharmax,
                     _nvarchar450,
-                    size => new SqlServerMaxLengthMapping(
+                    size => new OracleMaxLengthMapping(
                         "nvarchar(" + size + ")",
                         typeof(string),
                         dbType: null,
@@ -230,11 +232,11 @@ namespace Microsoft.EntityFrameworkCore.Storage.Internal
         {
             if (_disallowedMappings.Contains(storeType))
             {
-                throw new ArgumentException(SqlServerStrings.UnqualifiedDataType(storeType));
+                throw new ArgumentException(OracleStrings.UnqualifiedDataType(storeType));
             }
         }
 
-        protected override string GetColumnType(IProperty property) => property.SqlServer().ColumnType;
+        protected override string GetColumnType(IProperty property) => property.Oracle().ColumnType;
 
         protected override IReadOnlyDictionary<Type, RelationalTypeMapping> GetClrTypeMappings()
             => _clrTypeMappings;

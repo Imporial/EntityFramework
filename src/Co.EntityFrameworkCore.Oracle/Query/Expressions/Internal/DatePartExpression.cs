@@ -4,13 +4,19 @@
 using System;
 using System.Linq.Expressions;
 using JetBrains.Annotations;
-using Microsoft.EntityFrameworkCore.Query.Sql;
+using Co.EntityFrameworkCore.Query.Sql;
 using Microsoft.EntityFrameworkCore.Utilities;
 
-namespace Microsoft.EntityFrameworkCore.Query.Expressions.Internal
+namespace Co.EntityFrameworkCore.Query.Expressions.Internal
 {
     public class DatePartExpression : Expression
     {
+        /// <summary>
+        /// 指定日期部分整数表达式
+        /// </summary>
+        /// <param name="datePart">日期部分</param>
+        /// <param name="type">类型</param>
+        /// <param name="argument">表达式</param>
         public DatePartExpression(
             [NotNull] string datePart,
             [NotNull] Type type,
@@ -31,7 +37,7 @@ namespace Microsoft.EntityFrameworkCore.Query.Expressions.Internal
         {
             Check.NotNull(visitor, nameof(visitor));
 
-            var specificVisitor = visitor as ISqlServerExpressionVisitor;
+            var specificVisitor = visitor as IOracleExpressionVisitor;
 
             return specificVisitor != null
                 ? specificVisitor.VisitDatePartExpression(this)

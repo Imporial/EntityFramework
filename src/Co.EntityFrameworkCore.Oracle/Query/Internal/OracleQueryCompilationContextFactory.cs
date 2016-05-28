@@ -5,17 +5,19 @@ using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.Query.ExpressionVisitors;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using Microsoft.EntityFrameworkCore.Utilities;
 using Remotion.Linq.Parsing.Structure.NodeTypeProviders;
 
-namespace Microsoft.EntityFrameworkCore.Query.Internal
+namespace Co.EntityFrameworkCore.Query.Internal
 {
-    public class SqlServerQueryCompilationContextFactory : RelationalQueryCompilationContextFactory
+    public class OracleQueryCompilationContextFactory : RelationalQueryCompilationContextFactory
     {
-        public SqlServerQueryCompilationContextFactory(
+        public OracleQueryCompilationContextFactory(
             [NotNull] IModel model,
-            [NotNull] ISensitiveDataLogger<SqlServerQueryCompilationContextFactory> logger,
+            [NotNull] ISensitiveDataLogger<OracleQueryCompilationContextFactory> logger,
             [NotNull] IEntityQueryModelVisitorFactory entityQueryModelVisitorFactory,
             [NotNull] IRequiresMaterializationExpressionVisitorFactory requiresMaterializationExpressionVisitorFactory,
             [NotNull] MethodInfoBasedNodeTypeRegistry methodInfoBasedNodeTypeRegistry,
@@ -32,7 +34,7 @@ namespace Microsoft.EntityFrameworkCore.Query.Internal
 
         public override QueryCompilationContext Create(bool async)
             => async
-                ? new SqlServerQueryCompilationContext(
+                ? new OracleQueryCompilationContext(
                     Model,
                     (ISensitiveDataLogger)Logger,
                     EntityQueryModelVisitorFactory,
@@ -41,7 +43,7 @@ namespace Microsoft.EntityFrameworkCore.Query.Internal
                     new AsyncQueryMethodProvider(),
                     ContextType,
                     TrackQueryResults)
-                : new SqlServerQueryCompilationContext(
+                : new OracleQueryCompilationContext(
                     Model,
                     (ISensitiveDataLogger)Logger,
                     EntityQueryModelVisitorFactory,

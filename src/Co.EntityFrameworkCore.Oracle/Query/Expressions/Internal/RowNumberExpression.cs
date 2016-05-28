@@ -1,16 +1,20 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
+using Co.EntityFrameworkCore.Query.Sql;
+using JetBrains.Annotations;
+using Microsoft.EntityFrameworkCore.Query.Expressions;
+using Microsoft.EntityFrameworkCore.Utilities;
+using Remotion.Linq.Clauses;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using JetBrains.Annotations;
-using Microsoft.EntityFrameworkCore.Query.Sql;
-using Microsoft.EntityFrameworkCore.Utilities;
-using Remotion.Linq.Clauses;
 
-namespace Microsoft.EntityFrameworkCore.Query.Expressions.Internal
+namespace Co.EntityFrameworkCore.Query.Expressions.Internal
 {
+    /// <summary>
+    /// 行号表达式
+    /// </summary>
     public class RowNumberExpression : Expression
     {
         private readonly List<Ordering> _orderings = new List<Ordering>();
@@ -38,7 +42,7 @@ namespace Microsoft.EntityFrameworkCore.Query.Expressions.Internal
         {
             Check.NotNull(visitor, nameof(visitor));
 
-            var specificVisitor = visitor as ISqlServerExpressionVisitor;
+            var specificVisitor = visitor as IOracleExpressionVisitor;
 
             return specificVisitor != null
                 ? specificVisitor.VisitRowNumber(this)

@@ -2,39 +2,40 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using JetBrains.Annotations;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-namespace Microsoft.EntityFrameworkCore.Metadata.Internal
+namespace Co.EntityFrameworkCore.Metadata.Internal
 {
-    public static class SqlServerInternalMetadataBuilderExtensions
+    public static class OracleInternalMetadataBuilderExtensions
     {
-        public static SqlServerModelBuilderAnnotations SqlServer(
+        public static OracleModelBuilderAnnotations Oracle(
             [NotNull] this InternalModelBuilder builder,
             ConfigurationSource configurationSource)
-            => new SqlServerModelBuilderAnnotations(builder, configurationSource);
+            => new OracleModelBuilderAnnotations(builder, configurationSource);
 
-        public static SqlServerPropertyBuilderAnnotations SqlServer(
+        public static OraclePropertyBuilderAnnotations Oracle(
             [NotNull] this InternalPropertyBuilder builder,
             ConfigurationSource configurationSource)
-            => new SqlServerPropertyBuilderAnnotations(builder, configurationSource);
+            => new OraclePropertyBuilderAnnotations(builder, configurationSource);
 
-        public static RelationalEntityTypeBuilderAnnotations SqlServer(
+        public static RelationalEntityTypeBuilderAnnotations Oracle(
             [NotNull] this InternalEntityTypeBuilder builder,
             ConfigurationSource configurationSource)
-            => new RelationalEntityTypeBuilderAnnotations(builder, configurationSource, SqlServerFullAnnotationNames.Instance);
+            => new RelationalEntityTypeBuilderAnnotations(builder, configurationSource, OracleFullAnnotationNames.Instance);
 
-        public static SqlServerKeyBuilderAnnotations SqlServer(
+        public static OracleKeyBuilderAnnotations Oracle(
             [NotNull] this InternalKeyBuilder builder,
             ConfigurationSource configurationSource)
-            => new SqlServerKeyBuilderAnnotations(builder, configurationSource);
+            => new OracleKeyBuilderAnnotations(builder, configurationSource);
 
-        public static SqlServerIndexBuilderAnnotations SqlServer(
+        public static OracleIndexBuilderAnnotations Oracle(
             [NotNull] this InternalIndexBuilder builder,
             ConfigurationSource configurationSource)
-            => new SqlServerIndexBuilderAnnotations(builder, configurationSource);
+            => new OracleIndexBuilderAnnotations(builder, configurationSource);
 
-        public static RelationalForeignKeyBuilderAnnotations SqlServer(
+        public static RelationalForeignKeyBuilderAnnotations Oracle(
             [NotNull] this InternalRelationshipBuilder builder,
             ConfigurationSource configurationSource)
-            => new RelationalForeignKeyBuilderAnnotations(builder, configurationSource, SqlServerFullAnnotationNames.Instance);
+            => new RelationalForeignKeyBuilderAnnotations(builder, configurationSource, OracleFullAnnotationNames.Instance);
     }
 }

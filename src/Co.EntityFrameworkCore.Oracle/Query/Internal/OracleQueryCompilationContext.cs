@@ -7,12 +7,14 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Query.ExpressionVisitors;
 using Microsoft.EntityFrameworkCore.Utilities;
+using Microsoft.EntityFrameworkCore.Query;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 
-namespace Microsoft.EntityFrameworkCore.Query.Internal
+namespace Co.EntityFrameworkCore.Query.Internal
 {
-    public class SqlServerQueryCompilationContext : RelationalQueryCompilationContext
+    public class OracleQueryCompilationContext : RelationalQueryCompilationContext
     {
-        public SqlServerQueryCompilationContext(
+        public OracleQueryCompilationContext(
             [NotNull] IModel model,
             [NotNull] ISensitiveDataLogger logger,
             [NotNull] IEntityQueryModelVisitorFactory entityQueryModelVisitorFactory,

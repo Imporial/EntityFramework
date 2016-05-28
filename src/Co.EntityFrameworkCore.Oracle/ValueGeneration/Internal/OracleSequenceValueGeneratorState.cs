@@ -4,12 +4,13 @@
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Utilities;
+using Microsoft.EntityFrameworkCore.ValueGeneration;
 
-namespace Microsoft.EntityFrameworkCore.ValueGeneration.Internal
+namespace Co.EntityFrameworkCore.ValueGeneration.Internal
 {
-    public class SqlServerSequenceValueGeneratorState : HiLoValueGeneratorState
+    public class OracleSequenceValueGeneratorState : HiLoValueGeneratorState
     {
-        public SqlServerSequenceValueGeneratorState([NotNull] ISequence sequence)
+        public OracleSequenceValueGeneratorState([NotNull] ISequence sequence)
             : base(Check.NotNull(sequence, nameof(sequence)).IncrementBy)
         {
             Sequence = sequence;

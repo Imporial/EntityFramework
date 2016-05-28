@@ -6,25 +6,27 @@ using System.Data.SqlClient;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore;
 
-namespace Microsoft.EntityFrameworkCore.Storage.Internal
+namespace Co.EntityFrameworkCore.Storage.Internal
 {
-    public class SqlServerConnection : RelationalConnection, ISqlServerConnection
+    public class OracleConnection : RelationalConnection, IOracleConnection
     {
         private bool? _multipleActiveResultSetsEnabled;
 
         // Compensate for slow SQL Server database creation
         internal const int DefaultMasterConnectionCommandTimeout = 60;
 
-        public SqlServerConnection(
+        public OracleConnection(
             [NotNull] IDbContextOptions options,
             // ReSharper disable once SuggestBaseTypeForParameter
-            [NotNull] ILogger<SqlServerConnection> logger)
+            [NotNull] ILogger<OracleConnection> logger)
             : base(options, logger)
         {
         }
 
-        private SqlServerConnection(
+        private OracleConnection(
             [NotNull] IDbContextOptions options, [NotNull] ILogger logger)
             : base(options, logger)
         {
@@ -33,9 +35,9 @@ namespace Microsoft.EntityFrameworkCore.Storage.Internal
         protected override DbConnection CreateDbConnection() => new SqlConnection(ConnectionString);
 
         // TODO use clone connection method once implemented see #1406
-        public virtual ISqlServerConnection CreateMasterConnection()
-            => new SqlServerConnection(new DbContextOptionsBuilder()
-                .UseSqlServer(
+        public virtual IOracleConnection CreateMasterConnection()
+            => new OracleConnection(new DbContextOptionsBuilder()
+                .UseOracle(
                     new SqlConnectionStringBuilder { ConnectionString = ConnectionString, InitialCatalog = "master" }.ConnectionString,
                     b => b.CommandTimeout(CommandTimeout ?? DefaultMasterConnectionCommandTimeout)).Options, Logger);
 

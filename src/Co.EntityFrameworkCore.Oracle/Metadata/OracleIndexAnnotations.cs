@@ -2,30 +2,31 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using JetBrains.Annotations;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Co.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace Microsoft.EntityFrameworkCore.Metadata
+namespace Co.EntityFrameworkCore.Metadata
 {
-    public class SqlServerIndexAnnotations : RelationalIndexAnnotations, ISqlServerIndexAnnotations
+    public class OracleIndexAnnotations : RelationalIndexAnnotations, IOracleIndexAnnotations
     {
-        public SqlServerIndexAnnotations([NotNull] IIndex index)
-            : base(index, SqlServerFullAnnotationNames.Instance)
+        public OracleIndexAnnotations([NotNull] IIndex index)
+            : base(index, OracleFullAnnotationNames.Instance)
         {
         }
 
-        protected SqlServerIndexAnnotations([NotNull] RelationalAnnotations annotations)
-            : base(annotations, SqlServerFullAnnotationNames.Instance)
+        protected OracleIndexAnnotations([NotNull] RelationalAnnotations annotations)
+            : base(annotations, OracleFullAnnotationNames.Instance)
         {
         }
 
         public virtual bool? IsClustered
         {
-            get { return (bool?)Annotations.GetAnnotation(SqlServerFullAnnotationNames.Instance.Clustered, null); }
+            get { return (bool?)Annotations.GetAnnotation(OracleFullAnnotationNames.Instance.Clustered, null); }
             [param: CanBeNull] set { SetIsClustered(value); }
         }
 
         protected virtual bool SetIsClustered(bool? value) => Annotations.SetAnnotation(
-            SqlServerFullAnnotationNames.Instance.Clustered,
+            OracleFullAnnotationNames.Instance.Clustered,
             null,
             value);
     }

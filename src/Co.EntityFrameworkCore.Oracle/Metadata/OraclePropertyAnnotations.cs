@@ -1,62 +1,66 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
-using System;
+using Co.EntityFrameworkCore.Internal;
+using Co.EntityFrameworkCore.Metadata.Internal;
 using JetBrains.Annotations;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore.Utilities;
+using System;
 
-namespace Microsoft.EntityFrameworkCore.Metadata
+namespace Co.EntityFrameworkCore.Metadata
 {
-    public class SqlServerPropertyAnnotations : RelationalPropertyAnnotations, ISqlServerPropertyAnnotations
+    public class OraclePropertyAnnotations : RelationalPropertyAnnotations, IOraclePropertyAnnotations
     {
-        public SqlServerPropertyAnnotations([NotNull] IProperty property)
-            : base(property, SqlServerFullAnnotationNames.Instance)
+        public OraclePropertyAnnotations([NotNull] IProperty property)
+            : base(property, OracleFullAnnotationNames.Instance)
         {
         }
 
-        protected SqlServerPropertyAnnotations([NotNull] RelationalAnnotations annotations)
-            : base(annotations, SqlServerFullAnnotationNames.Instance)
+        protected OraclePropertyAnnotations([NotNull] RelationalAnnotations annotations)
+            : base(annotations, OracleFullAnnotationNames.Instance)
         {
         }
 
         public virtual string HiLoSequenceName
         {
-            get { return (string)Annotations.GetAnnotation(SqlServerFullAnnotationNames.Instance.HiLoSequenceName, null); }
+            get { return (string)Annotations.GetAnnotation(OracleFullAnnotationNames.Instance.HiLoSequenceName, null); }
             [param: CanBeNull] set { SetHiLoSequenceName(value); }
         }
 
         protected virtual bool SetHiLoSequenceName([CanBeNull] string value)
             => Annotations.SetAnnotation(
-                SqlServerFullAnnotationNames.Instance.HiLoSequenceName,
+                OracleFullAnnotationNames.Instance.HiLoSequenceName,
                 null,
                 Check.NullButNotEmpty(value, nameof(value)));
 
         public virtual string HiLoSequenceSchema
         {
-            get { return (string)Annotations.GetAnnotation(SqlServerFullAnnotationNames.Instance.HiLoSequenceSchema, null); }
+            get { return (string)Annotations.GetAnnotation(OracleFullAnnotationNames.Instance.HiLoSequenceSchema, null); }
             [param: CanBeNull] set { SetHiLoSequenceSchema(value); }
         }
 
         protected virtual bool SetHiLoSequenceSchema([CanBeNull] string value)
             => Annotations.SetAnnotation(
-                SqlServerFullAnnotationNames.Instance.HiLoSequenceSchema,
+                OracleFullAnnotationNames.Instance.HiLoSequenceSchema,
                 null,
                 Check.NullButNotEmpty(value, nameof(value)));
 
         public virtual ISequence FindHiLoSequence()
         {
-            var modelExtensions = Property.DeclaringEntityType.Model.SqlServer();
+            var modelExtensions = Property.DeclaringEntityType.Model.Oracle();
 
-            if (ValueGenerationStrategy != SqlServerValueGenerationStrategy.SequenceHiLo)
+            if (ValueGenerationStrategy != OracleValueGenerationStrategy.SequenceHiLo)
             {
                 return null;
             }
 
             var sequenceName = HiLoSequenceName
                                ?? modelExtensions.HiLoSequenceName
-                               ?? SqlServerModelAnnotations.DefaultHiLoSequenceName;
+                               ?? OracleModelAnnotations.DefaultHiLoSequenceName;
 
             var sequenceSchema = HiLoSequenceSchema
                                  ?? modelExtensions.HiLoSequenceSchema;
@@ -64,13 +68,13 @@ namespace Microsoft.EntityFrameworkCore.Metadata
             return modelExtensions.FindSequence(sequenceName, sequenceSchema);
         }
 
-        public virtual SqlServerValueGenerationStrategy? ValueGenerationStrategy
+        public virtual OracleValueGenerationStrategy? ValueGenerationStrategy
         {
-            get { return GetSqlServerValueGenerationStrategy(fallbackToModel: true); }
+            get { return GetOracleValueGenerationStrategy(fallbackToModel: true); }
             [param: CanBeNull] set { SetValueGenerationStrategy(value); }
         }
 
-        private SqlServerValueGenerationStrategy? GetSqlServerValueGenerationStrategy(bool fallbackToModel)
+        private OracleValueGenerationStrategy? GetOracleValueGenerationStrategy(bool fallbackToModel)
         {
             if (GetDefaultValue(false) != null
                 || GetDefaultValueSql(false) != null
@@ -79,8 +83,8 @@ namespace Microsoft.EntityFrameworkCore.Metadata
                 return null;
             }
 
-            var value = (SqlServerValueGenerationStrategy?)Annotations.GetAnnotation(
-                SqlServerFullAnnotationNames.Instance.ValueGenerationStrategy,
+            var value = (OracleValueGenerationStrategy?)Annotations.GetAnnotation(
+                OracleFullAnnotationNames.Instance.ValueGenerationStrategy,
                 null);
 
             var relationalProperty = Property.Relational();
@@ -91,29 +95,29 @@ namespace Microsoft.EntityFrameworkCore.Metadata
                     && relationalProperty.DefaultValue == null
                     && relationalProperty.DefaultValueSql == null
                     && relationalProperty.ComputedColumnSql == null
-                       ? Property.DeclaringEntityType.Model.SqlServer().ValueGenerationStrategy
+                       ? Property.DeclaringEntityType.Model.Oracle().ValueGenerationStrategy
                        : null);
         }
 
-        protected virtual bool SetValueGenerationStrategy(SqlServerValueGenerationStrategy? value)
+        protected virtual bool SetValueGenerationStrategy(OracleValueGenerationStrategy? value)
         {
             if (value != null)
             {
                 var propertyType = Property.ClrType;
 
-                if (value == SqlServerValueGenerationStrategy.IdentityColumn
+                if (value == OracleValueGenerationStrategy.IdentityColumn
                     && (!propertyType.IsInteger()
                         || propertyType == typeof(byte)
                         || propertyType == typeof(byte?)))
                 {
-                    throw new ArgumentException(SqlServerStrings.IdentityBadType(
+                    throw new ArgumentException(OracleStrings.IdentityBadType(
                         Property.Name, Property.DeclaringEntityType.Name, propertyType.Name));
                 }
 
-                if ((value == SqlServerValueGenerationStrategy.SequenceHiLo)
+                if ((value == OracleValueGenerationStrategy.SequenceHiLo)
                     && !propertyType.IsInteger())
                 {
-                    throw new ArgumentException(SqlServerStrings.SequenceBadType(
+                    throw new ArgumentException(OracleStrings.SequenceBadType(
                         Property.Name, Property.DeclaringEntityType.Name, propertyType.Name));
                 }
             }
@@ -130,17 +134,17 @@ namespace Microsoft.EntityFrameworkCore.Metadata
                 ClearAllServerGeneratedValues();
             }
 
-            return Annotations.SetAnnotation(SqlServerFullAnnotationNames.Instance.ValueGenerationStrategy, null, value);
+            return Annotations.SetAnnotation(OracleFullAnnotationNames.Instance.ValueGenerationStrategy, null, value);
         }
 
-        protected virtual bool CanSetValueGenerationStrategy(SqlServerValueGenerationStrategy? value)
+        protected virtual bool CanSetValueGenerationStrategy(OracleValueGenerationStrategy? value)
         {
-            if (GetSqlServerValueGenerationStrategy(fallbackToModel: false) == value)
+            if (GetOracleValueGenerationStrategy(fallbackToModel: false) == value)
             {
                 return true;
             }
 
-            if (!Annotations.CanSetAnnotation(SqlServerFullAnnotationNames.Instance.ValueGenerationStrategy, null, value))
+            if (!Annotations.CanSetAnnotation(OracleFullAnnotationNames.Instance.ValueGenerationStrategy, null, value))
             {
                 return false;
             }

@@ -5,15 +5,17 @@ using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.Query.ExpressionVisitors;
 using Microsoft.EntityFrameworkCore.Query.ExpressionVisitors.Internal;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using Microsoft.EntityFrameworkCore.Utilities;
 
-namespace Microsoft.EntityFrameworkCore.Query.Internal
+namespace Co.EntityFrameworkCore.Query.Internal
 {
-    public class SqlServerQueryModelVisitorFactory : RelationalQueryModelVisitorFactory
+    public class OracleQueryModelVisitorFactory : RelationalQueryModelVisitorFactory
     {
-        public SqlServerQueryModelVisitorFactory(
+        public OracleQueryModelVisitorFactory(
             [NotNull] IQueryOptimizer queryOptimizer,
             [NotNull] INavigationRewritingExpressionVisitorFactory navigationRewritingExpressionVisitorFactory,
             [NotNull] ISubQueryMemberPushDownExpressionVisitor subQueryMemberPushDownExpressionVisitor,
@@ -64,7 +66,7 @@ namespace Microsoft.EntityFrameworkCore.Query.Internal
             QueryCompilationContext queryCompilationContext,
             EntityQueryModelVisitor parentEntityQueryModelVisitor)
             =>
-                new SqlServerQueryModelVisitor(
+                new OracleQueryModelVisitor(
                     QueryOptimizer,
                     NavigationRewritingExpressionVisitorFactory,
                     SubQueryMemberPushDownExpressionVisitor,
@@ -87,6 +89,6 @@ namespace Microsoft.EntityFrameworkCore.Query.Internal
                     QueryFlattenerFactory,
                     ContextOptions,
                     (RelationalQueryCompilationContext)Check.NotNull(queryCompilationContext, nameof(queryCompilationContext)),
-                    (SqlServerQueryModelVisitor)parentEntityQueryModelVisitor);
+                    (OracleQueryModelVisitor)parentEntityQueryModelVisitor);
     }
 }

@@ -7,10 +7,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore.Query.Expressions;
+using Microsoft.EntityFrameworkCore.Query.ExpressionTranslators;
 
-namespace Microsoft.EntityFrameworkCore.Query.ExpressionTranslators.Internal
+namespace Co.EntityFrameworkCore.Query.ExpressionTranslators.Internal
 {
-    public class SqlServerMathRoundTranslator : IMethodCallTranslator
+    public class OracleMathRoundTranslator : IMethodCallTranslator
     {
         private static readonly IEnumerable<MethodInfo> _methodInfos = typeof(Math).GetTypeInfo().GetDeclaredMethods(nameof(Math.Round))
             .Where(m => (m.GetParameters().Length == 1)

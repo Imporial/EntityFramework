@@ -1,29 +1,31 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
-using System.Linq;
-using System.Linq.Expressions;
+using Co.EntityFrameworkCore.Infrastructure.Internal;
+using Co.EntityFrameworkCore.Query.Expressions.Internal;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.Query.Expressions;
-using Microsoft.EntityFrameworkCore.Query.Expressions.Internal;
 using Microsoft.EntityFrameworkCore.Query.ExpressionVisitors;
 using Microsoft.EntityFrameworkCore.Query.ExpressionVisitors.Internal;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using Microsoft.EntityFrameworkCore.Utilities;
 using Remotion.Linq;
 using Remotion.Linq.Clauses;
+using System.Linq;
+using System.Linq.Expressions;
 
-namespace Microsoft.EntityFrameworkCore.Query.Internal
+namespace Co.EntityFrameworkCore.Query.Internal
 {
-    public class SqlServerQueryModelVisitor : RelationalQueryModelVisitor
+    public class OracleQueryModelVisitor : RelationalQueryModelVisitor
     {
         private const string RowNumberColumnName = "__RowNumber__";
 
-        public SqlServerQueryModelVisitor(
+        public OracleQueryModelVisitor(
             [NotNull] IQueryOptimizer queryOptimizer,
             [NotNull] INavigationRewritingExpressionVisitorFactory navigationRewritingExpressionVisitorFactory,
             [NotNull] ISubQueryMemberPushDownExpressionVisitor subQueryMemberPushDownExpressionVisitor,
@@ -47,7 +49,7 @@ namespace Microsoft.EntityFrameworkCore.Query.Internal
             [NotNull] IDbContextOptions contextOptions,
             [NotNull] RelationalQueryCompilationContext queryCompilationContext,
             // ReSharper disable once SuggestBaseTypeForParameter
-            [CanBeNull] SqlServerQueryModelVisitor parentQueryModelVisitor)
+            [CanBeNull] OracleQueryModelVisitor parentQueryModelVisitor)
             : base(
                 Check.NotNull(queryOptimizer, nameof(queryOptimizer)),
                 Check.NotNull(navigationRewritingExpressionVisitorFactory, nameof(navigationRewritingExpressionVisitorFactory)),
@@ -79,7 +81,7 @@ namespace Microsoft.EntityFrameworkCore.Query.Internal
         {
             base.VisitQueryModel(queryModel);
 
-            if (ContextOptions.FindExtension<SqlServerOptionsExtension>()?.RowNumberPaging == true)
+            if (ContextOptions.FindExtension<OracleOptionsExtension>()?.RowNumberPaging == true)
             {
                 var visitor = new RowNumberPagingExpressionVisitor();
 

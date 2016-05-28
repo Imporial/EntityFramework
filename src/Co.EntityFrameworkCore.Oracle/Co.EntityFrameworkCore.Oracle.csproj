@@ -5,11 +5,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{99595B81-D47C-40BA-8C61-5328A5A0E4AB}</ProjectGuid>
+    <ProjectGuid>{C3501E37-E4F1-4BE6-BEAB-A7DB4D565AEA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Microsoft.EntityFrameworkCore</RootNamespace>
-    <AssemblyName>Microsoft.EntityFrameworkCore.SqlServer</AssemblyName>
+    <RootNamespace>Co.EntityFrameworkCore</RootNamespace>
+    <AssemblyName>Co.EntityFrameworkCore.Oracle</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Co.EntityFrameworkCore.Oracle.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Co.EntityFrameworkCore.Oracle.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System.Data" />
@@ -61,43 +63,43 @@
     <Compile Include="..\Shared\StringBuilderExtensions.cs">
       <Link>StringBuilderExtensions.cs</Link>
     </Compile>
-    <Compile Include="Extensions\SqlServerDbContextOptionsExtensions.cs" />
-    <Compile Include="Extensions\SqlServerServiceCollectionExtensions.cs" />
-    <Compile Include="Extensions\SqlServerEntityTypeBuilderExtensions.cs" />
-    <Compile Include="Extensions\SqlServerIndexBuilderExtensions.cs" />
-    <Compile Include="Extensions\SqlServerKeyBuilderExtensions.cs" />
-    <Compile Include="Extensions\SqlServerMetadataExtensions.cs" />
-    <Compile Include="Extensions\SqlServerModelBuilderExtensions.cs" />
-    <Compile Include="Extensions\SqlServerPropertyBuilderExtensions.cs" />
-    <Compile Include="Extensions\SqlServerReferenceCollectionBuilderExtensions.cs" />
-    <Compile Include="Extensions\SqlServerReferenceReferenceBuilderExtensions.cs" />
-    <Compile Include="Infrastructure\Internal\SqlServerModelSource.cs" />
-    <Compile Include="Infrastructure\Internal\SqlServerOptionsExtension.cs" />
-    <Compile Include="Infrastructure\SqlServerDbContextOptionsBuilder.cs" />
-    <Compile Include="Metadata\Conventions\Internal\SqlServerValueGenerationStrategyConvention.cs" />
-    <Compile Include="Metadata\Conventions\SqlServerConventionSetBuilder.cs" />
-    <Compile Include="Metadata\Internal\SqlServerAnnotationNames.cs" />
-    <Compile Include="Metadata\Internal\SqlServerFullAnnotationNames.cs" />
-    <Compile Include="Metadata\Internal\SqlServerIndexBuilderAnnotations.cs" />
-    <Compile Include="Metadata\Internal\SqlServerInternalMetadataBuilderExtensions.cs" />
-    <Compile Include="Metadata\Internal\SqlServerKeyBuilderAnnotations.cs" />
-    <Compile Include="Metadata\Internal\SqlServerModelBuilderAnnotations.cs" />
-    <Compile Include="Metadata\Internal\SqlServerPropertyBuilderAnnotations.cs" />
-    <Compile Include="Metadata\ISqlServerIndexAnnotations.cs" />
-    <Compile Include="Metadata\ISqlServerKeyAnnotations.cs" />
-    <Compile Include="Metadata\ISqlServerModelAnnotations.cs" />
-    <Compile Include="Metadata\ISqlServerPropertyAnnotations.cs" />
-    <Compile Include="Metadata\SqlServerAnnotationProvider.cs" />
-    <Compile Include="Metadata\SqlServerIndexAnnotations.cs" />
-    <Compile Include="Metadata\SqlServerKeyAnnotations.cs" />
-    <Compile Include="Metadata\SqlServerModelAnnotations.cs" />
-    <Compile Include="Metadata\SqlServerPropertyAnnotations.cs" />
-    <Compile Include="Metadata\SqlServerValueGenerationStrategy.cs" />
-    <Compile Include="Migrations\Internal\SqlServerHistoryRepository.cs" />
-    <Compile Include="Migrations\Internal\SqlServerMigrationsAnnotationProvider.cs" />
-    <Compile Include="Migrations\Operations\SqlServerCreateDatabaseOperation.cs" />
-    <Compile Include="Migrations\Operations\SqlServerDropDatabaseOperation.cs" />
-    <Compile Include="Migrations\SqlServerMigrationsSqlGenerator.cs" />
+    <Compile Include="Extensions\OracleDbContextOptionsExtensions.cs" />
+    <Compile Include="Extensions\OracleEntityTypeBuilderExtensions.cs" />
+    <Compile Include="Extensions\OracleIndexBuilderExtensions.cs" />
+    <Compile Include="Extensions\OracleKeyBuilderExtensions.cs" />
+    <Compile Include="Extensions\OracleMetadataExtensions.cs" />
+    <Compile Include="Extensions\OracleModelBuilderExtensions.cs" />
+    <Compile Include="Extensions\OraclePropertyBuilderExtensions.cs" />
+    <Compile Include="Extensions\OracleReferenceCollectionBuilderExtensions.cs" />
+    <Compile Include="Extensions\OracleReferenceReferenceBuilderExtensions.cs" />
+    <Compile Include="Extensions\OracleServiceCollectionExtensions.cs" />
+    <Compile Include="Infrastructure\Internal\OracleModelSource.cs" />
+    <Compile Include="Infrastructure\Internal\OracleOptionsExtension.cs" />
+    <Compile Include="Infrastructure\OracleDbContextOptionsBuilder.cs" />
+    <Compile Include="Metadata\Conventions\Internal\OracleValueGenerationStrategyConvention.cs" />
+    <Compile Include="Metadata\Conventions\OracleConventionSetBuilder.cs" />
+    <Compile Include="Metadata\Internal\OracleAnnotationNames.cs" />
+    <Compile Include="Metadata\Internal\OracleFullAnnotationNames.cs" />
+    <Compile Include="Metadata\Internal\OracleIndexBuilderAnnotations.cs" />
+    <Compile Include="Metadata\Internal\OracleInternalMetadataBuilderExtensions.cs" />
+    <Compile Include="Metadata\Internal\OracleKeyBuilderAnnotations.cs" />
+    <Compile Include="Metadata\Internal\OracleModelBuilderAnnotations.cs" />
+    <Compile Include="Metadata\Internal\OraclePropertyBuilderAnnotations.cs" />
+    <Compile Include="Metadata\IOracleIndexAnnotations.cs" />
+    <Compile Include="Metadata\IOracleKeyAnnotations.cs" />
+    <Compile Include="Metadata\IOracleModelAnnotations.cs" />
+    <Compile Include="Metadata\IOraclePropertyAnnotations.cs" />
+    <Compile Include="Metadata\OracleAnnotationProvider.cs" />
+    <Compile Include="Metadata\OracleIndexAnnotations.cs" />
+    <Compile Include="Metadata\OracleKeyAnnotations.cs" />
+    <Compile Include="Metadata\OracleModelAnnotations.cs" />
+    <Compile Include="Metadata\OraclePropertyAnnotations.cs" />
+    <Compile Include="Metadata\OracleValueGenerationStrategy.cs" />
+    <Compile Include="Migrations\Internal\OracleHistoryRepository.cs" />
+    <Compile Include="Migrations\Internal\OracleMigrationsAnnotationProvider.cs" />
+    <Compile Include="Migrations\Operations\OracleCreateDatabaseOperation.cs" />
+    <Compile Include="Migrations\Operations\OracleDropDatabaseOperation.cs" />
+    <Compile Include="Migrations\OracleMigrationsSqlGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\SqlServerStrings.Designer.cs">
       <DependentUpon>SqlServerStrings.resx</DependentUpon>
@@ -105,55 +107,55 @@
     <Compile Include="Properties\InternalsVisibleTo.cs" />
     <Compile Include="Query\Expressions\Internal\DatePartExpression.cs" />
     <Compile Include="Query\Expressions\Internal\RowNumberExpression.cs" />
-    <Compile Include="Query\ExpressionTranslators\Internal\SqlServerCompositeMemberTranslator.cs" />
-    <Compile Include="Query\ExpressionTranslators\Internal\SqlServerCompositeMethodCallTranslator.cs" />
-    <Compile Include="Query\ExpressionTranslators\Internal\SqlServerConvertTranslator.cs" />
-    <Compile Include="Query\ExpressionTranslators\Internal\SqlServerDateTimeDateComponentTranslator.cs" />
-    <Compile Include="Query\ExpressionTranslators\Internal\SqlServerDateTimeNowTranslator.cs" />
-    <Compile Include="Query\ExpressionTranslators\Internal\SqlServerMathAbsTranslator.cs" />
-    <Compile Include="Query\ExpressionTranslators\Internal\SqlServerMathCeilingTranslator.cs" />
-    <Compile Include="Query\ExpressionTranslators\Internal\SqlServerMathFloorTranslator.cs" />
-    <Compile Include="Query\ExpressionTranslators\Internal\SqlServerMathPowerTranslator.cs" />
-    <Compile Include="Query\ExpressionTranslators\Internal\SqlServerMathRoundTranslator.cs" />
-    <Compile Include="Query\ExpressionTranslators\Internal\SqlServerMathTruncateTranslator.cs" />
-    <Compile Include="Query\ExpressionTranslators\Internal\SqlServerNewGuidTranslator.cs" />
-    <Compile Include="Query\ExpressionTranslators\Internal\SqlServerStringLengthTranslator.cs" />
-    <Compile Include="Query\ExpressionTranslators\Internal\SqlServerStringReplaceTranslator.cs" />
-    <Compile Include="Query\ExpressionTranslators\Internal\SqlServerStringTrimEndTranslator.cs" />
-    <Compile Include="Query\ExpressionTranslators\Internal\SqlServerStringIsNullOrWhiteSpaceTranslator.cs" />
-    <Compile Include="Query\ExpressionTranslators\Internal\SqlServerStringTrimTranslator.cs" />
-    <Compile Include="Query\ExpressionTranslators\Internal\SqlServerStringTrimStartTranslator.cs" />
-    <Compile Include="Query\ExpressionTranslators\Internal\SqlServerStringSubstringTranslator.cs" />
-    <Compile Include="Query\ExpressionTranslators\Internal\SqlServerStringToLowerTranslator.cs" />
-    <Compile Include="Query\ExpressionTranslators\Internal\SqlServerStringToUpperTranslator.cs" />
-    <Compile Include="Query\ExpressionTranslators\Internal\SqlServerDateTimeDatePartComponentTranslator.cs" />
-    <Compile Include="Query\Internal\SqlServerCompiledQueryCacheKeyGenerator.cs" />
-    <Compile Include="Query\Internal\SqlServerQueryCompilationContext.cs" />
-    <Compile Include="Query\Internal\SqlServerQueryCompilationContextFactory.cs" />
-    <Compile Include="Query\Internal\SqlServerQueryModelVisitor.cs" />
-    <Compile Include="Query\Internal\SqlServerQueryModelVisitorFactory.cs" />
-    <Compile Include="Query\Sql\Internal\SqlServerQuerySqlGenerator.cs" />
-    <Compile Include="Query\Sql\Internal\SqlServerQuerySqlGeneratorFactory.cs" />
-    <Compile Include="Query\Sql\ISqlServerExpressionVisitor.cs" />
-    <Compile Include="Storage\Internal\ISqlServerConnection.cs" />
-    <Compile Include="Storage\Internal\SqlServerConnection.cs" />
-    <Compile Include="Storage\Internal\SqlServerDatabaseCreator.cs" />
-    <Compile Include="Storage\Internal\SqlServerDatabaseProviderServices.cs" />
-    <Compile Include="Storage\Internal\SqlServerMaxLengthMapping.cs" />
-    <Compile Include="Storage\Internal\SqlServerSqlGenerationHelper.cs" />
-    <Compile Include="Storage\Internal\SqlServerTypeMapper.cs" />
-    <Compile Include="Update\Internal\ISqlServerUpdateSqlGenerator.cs" />
-    <Compile Include="Update\Internal\SqlServerModificationCommandBatch.cs" />
-    <Compile Include="Update\Internal\SqlServerModificationCommandBatchFactory.cs" />
-    <Compile Include="Update\Internal\SqlServerUpdateSqlGenerator.cs" />
+    <Compile Include="Query\ExpressionTranslators\Internal\OracleCompositeMemberTranslator.cs" />
+    <Compile Include="Query\ExpressionTranslators\Internal\OracleCompositeMethodCallTranslator.cs" />
+    <Compile Include="Query\ExpressionTranslators\Internal\OracleConvertTranslator.cs" />
+    <Compile Include="Query\ExpressionTranslators\Internal\OracleDateTimeDateComponentTranslator.cs" />
+    <Compile Include="Query\ExpressionTranslators\Internal\OracleDateTimeDatePartComponentTranslator.cs" />
+    <Compile Include="Query\ExpressionTranslators\Internal\OracleDateTimeNowTranslator.cs" />
+    <Compile Include="Query\ExpressionTranslators\Internal\OracleMathAbsTranslator.cs" />
+    <Compile Include="Query\ExpressionTranslators\Internal\OracleMathCeilingTranslator.cs" />
+    <Compile Include="Query\ExpressionTranslators\Internal\OracleMathFloorTranslator.cs" />
+    <Compile Include="Query\ExpressionTranslators\Internal\OracleMathPowerTranslator.cs" />
+    <Compile Include="Query\ExpressionTranslators\Internal\OracleMathRoundTranslator.cs" />
+    <Compile Include="Query\ExpressionTranslators\Internal\OracleMathTruncateTranslator.cs" />
+    <Compile Include="Query\ExpressionTranslators\Internal\OracleNewGuidTranslator.cs" />
+    <Compile Include="Query\ExpressionTranslators\Internal\OracleStringIsNullOrWhiteSpaceTranslator.cs" />
+    <Compile Include="Query\ExpressionTranslators\Internal\OracleStringLengthTranslator.cs" />
+    <Compile Include="Query\ExpressionTranslators\Internal\OracleStringReplaceTranslator.cs" />
+    <Compile Include="Query\ExpressionTranslators\Internal\OracleStringSubstringTranslator.cs" />
+    <Compile Include="Query\ExpressionTranslators\Internal\OracleStringToLowerTranslator.cs" />
+    <Compile Include="Query\ExpressionTranslators\Internal\OracleStringToUpperTranslator.cs" />
+    <Compile Include="Query\ExpressionTranslators\Internal\OracleStringTrimEndTranslator.cs" />
+    <Compile Include="Query\ExpressionTranslators\Internal\OracleStringTrimStartTranslator.cs" />
+    <Compile Include="Query\ExpressionTranslators\Internal\OracleStringTrimTranslator.cs" />
+    <Compile Include="Query\Internal\OracleCompiledQueryCacheKeyGenerator.cs" />
+    <Compile Include="Query\Internal\OracleQueryCompilationContext.cs" />
+    <Compile Include="Query\Internal\OracleQueryCompilationContextFactory.cs" />
+    <Compile Include="Query\Internal\OracleQueryModelVisitor.cs" />
+    <Compile Include="Query\Internal\OracleQueryModelVisitorFactory.cs" />
+    <Compile Include="Query\Sql\Internal\OracleQuerySqlGenerator.cs" />
+    <Compile Include="Query\Sql\Internal\OracleQuerySqlGeneratorFactory.cs" />
+    <Compile Include="Query\Sql\IOracleExpressionVisitor.cs" />
+    <Compile Include="Storage\Internal\IOracleConnection.cs" />
+    <Compile Include="Storage\Internal\OracleConnection.cs" />
+    <Compile Include="Storage\Internal\OracleDatabaseCreator.cs" />
+    <Compile Include="Storage\Internal\OracleDatabaseProviderServices.cs" />
+    <Compile Include="Storage\Internal\OracleMaxLengthMapping.cs" />
+    <Compile Include="Storage\Internal\OracleSqlGenerationHelper.cs" />
+    <Compile Include="Storage\Internal\OracleTypeMapper.cs" />
+    <Compile Include="Update\Internal\IOracleUpdateSqlGenerator.cs" />
+    <Compile Include="Update\Internal\OracleModificationCommandBatch.cs" />
+    <Compile Include="Update\Internal\OracleModificationCommandBatchFactory.cs" />
+    <Compile Include="Update\Internal\OracleUpdateSqlGenerator.cs" />
     <Compile Include="Utilities\EnumerableExtensions.cs" />
-    <Compile Include="ValueGeneration\Internal\ISqlServerSequenceValueGeneratorFactory.cs" />
-    <Compile Include="ValueGeneration\Internal\ISqlServerValueGeneratorCache.cs" />
-    <Compile Include="ValueGeneration\Internal\SqlServerSequenceHiLoValueGenerator.cs" />
-    <Compile Include="ValueGeneration\Internal\SqlServerSequenceValueGeneratorFactory.cs" />
-    <Compile Include="ValueGeneration\Internal\SqlServerSequenceValueGeneratorState.cs" />
-    <Compile Include="ValueGeneration\Internal\SqlServerValueGeneratorCache.cs" />
-    <Compile Include="ValueGeneration\Internal\SqlServerValueGeneratorSelector.cs" />
+    <Compile Include="ValueGeneration\Internal\IOracleSequenceValueGeneratorFactory.cs" />
+    <Compile Include="ValueGeneration\Internal\IOracleValueGeneratorCache.cs" />
+    <Compile Include="ValueGeneration\Internal\OracleSequenceHiLoValueGenerator.cs" />
+    <Compile Include="ValueGeneration\Internal\OracleSequenceValueGeneratorFactory.cs" />
+    <Compile Include="ValueGeneration\Internal\OracleSequenceValueGeneratorState.cs" />
+    <Compile Include="ValueGeneration\Internal\OracleValueGeneratorCache.cs" />
+    <Compile Include="ValueGeneration\Internal\OracleValueGeneratorSelector.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\SqlServerStrings.resx">

@@ -1,24 +1,26 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
-using System;
+using Co.EntityFrameworkCore.Metadata;
+using Co.EntityFrameworkCore.Storage.Internal;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Storage.Internal;
 using Microsoft.EntityFrameworkCore.Utilities;
+using Microsoft.EntityFrameworkCore.ValueGeneration;
+using System;
 
-namespace Microsoft.EntityFrameworkCore.ValueGeneration.Internal
+namespace Co.EntityFrameworkCore.ValueGeneration.Internal
 {
-    public class SqlServerValueGeneratorSelector : RelationalValueGeneratorSelector
+    public class OracleValueGeneratorSelector : RelationalValueGeneratorSelector
     {
-        private readonly ISqlServerSequenceValueGeneratorFactory _sequenceFactory;
+        private readonly IOracleSequenceValueGeneratorFactory _sequenceFactory;
 
-        private readonly ISqlServerConnection _connection;
+        private readonly IOracleConnection _connection;
 
-        public SqlServerValueGeneratorSelector(
-            [NotNull] ISqlServerValueGeneratorCache cache,
-            [NotNull] ISqlServerSequenceValueGeneratorFactory sequenceFactory,
-            [NotNull] ISqlServerConnection connection,
+        public OracleValueGeneratorSelector(
+            [NotNull] IOracleValueGeneratorCache cache,
+            [NotNull] IOracleSequenceValueGeneratorFactory sequenceFactory,
+            [NotNull] IOracleConnection connection,
             [NotNull] IRelationalAnnotationProvider relationalExtensions)
             : base(cache, relationalExtensions)
         {
@@ -29,14 +31,14 @@ namespace Microsoft.EntityFrameworkCore.ValueGeneration.Internal
             _connection = connection;
         }
 
-        public new virtual ISqlServerValueGeneratorCache Cache => (ISqlServerValueGeneratorCache)base.Cache;
+        public new virtual IOracleValueGeneratorCache Cache => (IOracleValueGeneratorCache)base.Cache;
 
         public override ValueGenerator Select(IProperty property, IEntityType entityType)
         {
             Check.NotNull(property, nameof(property));
             Check.NotNull(entityType, nameof(entityType));
 
-            return property.SqlServer().ValueGenerationStrategy == SqlServerValueGenerationStrategy.SequenceHiLo
+            return property.Oracle().ValueGenerationStrategy == OracleValueGenerationStrategy.SequenceHiLo
                 ? _sequenceFactory.Create(property, Cache.GetOrAddSequenceState(property), _connection)
                 : Cache.GetOrAdd(property, entityType, Create);
         }
@@ -48,7 +50,7 @@ namespace Microsoft.EntityFrameworkCore.ValueGeneration.Internal
 
             return property.ClrType.UnwrapNullableType() == typeof(Guid)
                 ? property.ValueGenerated == ValueGenerated.Never
-                  || property.SqlServer().DefaultValueSql != null
+                  || property.Oracle().DefaultValueSql != null
                     ? (ValueGenerator)new TemporaryGuidValueGenerator()
                     : new SequentialGuidValueGenerator()
                 : base.Create(property, entityType);

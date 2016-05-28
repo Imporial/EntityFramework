@@ -2,12 +2,14 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using JetBrains.Annotations;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-namespace Microsoft.EntityFrameworkCore.Metadata.Internal
+namespace Co.EntityFrameworkCore.Metadata.Internal
 {
-    public class SqlServerPropertyBuilderAnnotations : SqlServerPropertyAnnotations
+    public class OraclePropertyBuilderAnnotations : OraclePropertyAnnotations
     {
-        public SqlServerPropertyBuilderAnnotations(
+        public OraclePropertyBuilderAnnotations(
             [NotNull] InternalPropertyBuilder internalBuilder,
             ConfigurationSource configurationSource)
             : base(new RelationalAnnotationsBuilder(internalBuilder, configurationSource))
@@ -44,7 +46,7 @@ namespace Microsoft.EntityFrameworkCore.Metadata.Internal
 
         public new virtual bool HiLoSequenceSchema([CanBeNull] string value) => SetHiLoSequenceSchema(value);
 
-        public new virtual bool ValueGenerationStrategy(SqlServerValueGenerationStrategy? value) => SetValueGenerationStrategy(value);
+        public new virtual bool ValueGenerationStrategy(OracleValueGenerationStrategy? value) => SetValueGenerationStrategy(value);
 #pragma warning restore 109
     }
 }

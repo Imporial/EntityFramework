@@ -3,15 +3,16 @@
 
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Storage.Internal;
+using Co.EntityFrameworkCore.Storage.Internal;
+using Microsoft.EntityFrameworkCore.ValueGeneration;
 
-namespace Microsoft.EntityFrameworkCore.ValueGeneration.Internal
+namespace Co.EntityFrameworkCore.ValueGeneration.Internal
 {
-    public interface ISqlServerSequenceValueGeneratorFactory
+    public interface IOracleSequenceValueGeneratorFactory
     {
         ValueGenerator Create(
             [NotNull] IProperty property,
-            [NotNull] SqlServerSequenceValueGeneratorState generatorState,
-            [NotNull] ISqlServerConnection connection);
+            [NotNull] OracleSequenceValueGeneratorState generatorState,
+            [NotNull] IOracleConnection connection);
     }
 }

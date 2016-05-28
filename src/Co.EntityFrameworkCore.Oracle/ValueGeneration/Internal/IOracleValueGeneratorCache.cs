@@ -3,11 +3,12 @@
 
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.ValueGeneration;
 
-namespace Microsoft.EntityFrameworkCore.ValueGeneration.Internal
+namespace Co.EntityFrameworkCore.ValueGeneration.Internal
 {
-    public interface ISqlServerValueGeneratorCache : IValueGeneratorCache
+    public interface IOracleValueGeneratorCache : IValueGeneratorCache
     {
-        SqlServerSequenceValueGeneratorState GetOrAddSequenceState([NotNull] IProperty property);
+        OracleSequenceValueGeneratorState GetOrAddSequenceState([NotNull] IProperty property);
     }
 }

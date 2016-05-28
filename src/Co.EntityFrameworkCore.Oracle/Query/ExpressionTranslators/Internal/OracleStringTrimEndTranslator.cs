@@ -5,10 +5,11 @@ using System;
 using System.Linq.Expressions;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore.Query.Expressions;
+using Microsoft.EntityFrameworkCore.Query.ExpressionTranslators;
 
-namespace Microsoft.EntityFrameworkCore.Query.ExpressionTranslators.Internal
+namespace Co.EntityFrameworkCore.Query.ExpressionTranslators.Internal
 {
-    public class SqlServerStringTrimEndTranslator : IMethodCallTranslator
+    public class OracleStringTrimEndTranslator : IMethodCallTranslator
     {
         private static readonly MethodInfo _trimEnd = typeof(string).GetTypeInfo()
             .GetDeclaredMethod(nameof(string.TrimEnd));

@@ -4,10 +4,11 @@
 using System.Collections.Generic;
 using System.Text;
 using JetBrains.Annotations;
+using Microsoft.EntityFrameworkCore.Update;
 
-namespace Microsoft.EntityFrameworkCore.Update.Internal
+namespace Co.EntityFrameworkCore.Update.Internal
 {
-    public interface ISqlServerUpdateSqlGenerator : IUpdateSqlGenerator
+    public interface IOracleUpdateSqlGenerator : IUpdateSqlGenerator
     {
         ResultSetMapping AppendBulkInsertOperation(
             [NotNull] StringBuilder commandStringBuilder,

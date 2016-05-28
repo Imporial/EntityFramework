@@ -1,23 +1,25 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
+using Co.EntityFrameworkCore.Metadata;
+using JetBrains.Annotations;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Update;
+using Microsoft.EntityFrameworkCore.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using JetBrains.Annotations;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.EntityFrameworkCore.Utilities;
 
-namespace Microsoft.EntityFrameworkCore.Update.Internal
+namespace Co.EntityFrameworkCore.Update.Internal
 {
-    public class SqlServerUpdateSqlGenerator : UpdateSqlGenerator, ISqlServerUpdateSqlGenerator
+    public class OracleUpdateSqlGenerator : UpdateSqlGenerator, IOracleUpdateSqlGenerator
     {
         private readonly IRelationalTypeMapper _typeMapper;
 
-        public SqlServerUpdateSqlGenerator([NotNull] ISqlGenerationHelper sqlGenerationHelper,
+        public OracleUpdateSqlGenerator([NotNull] ISqlGenerationHelper sqlGenerationHelper,
             [NotNull] IRelationalTypeMapper typeMapper)
             : base(sqlGenerationHelper)
         {
@@ -36,7 +38,7 @@ namespace Microsoft.EntityFrameworkCore.Update.Internal
                 && modificationCommands[0].ColumnModifications.All(o =>
                     !o.IsKey
                     || !o.IsRead
-                    || (o.Property.SqlServer().ValueGenerationStrategy == SqlServerValueGenerationStrategy.IdentityColumn)))
+                    || (o.Property.Oracle().ValueGenerationStrategy == OracleValueGenerationStrategy.IdentityColumn)))
             {
                 return AppendInsertOperation(commandStringBuilder, modificationCommands[0], commandPosition);
             }
@@ -46,7 +48,7 @@ namespace Microsoft.EntityFrameworkCore.Update.Internal
             var defaultValuesOnly = writeOperations.Count == 0;
             var nonIdentityOperations = defaultValuesOnly
                 ? modificationCommands.First().ColumnModifications
-                    .Where(o => o.Property.SqlServer().ValueGenerationStrategy != SqlServerValueGenerationStrategy.IdentityColumn)
+                    .Where(o => o.Property.Oracle().ValueGenerationStrategy != OracleValueGenerationStrategy.IdentityColumn)
                     .ToList()
                 : new List<ColumnModification>();
 
@@ -344,7 +346,7 @@ namespace Microsoft.EntityFrameworkCore.Update.Internal
 
         private string GetTypeNameForCopy(IProperty property)
         {
-            var typeName = property.SqlServer().ColumnType
+            var typeName = property.Oracle().ColumnType
                            ?? _typeMapper.GetMapping(property).StoreType;
 
             return typeName.Equals("rowversion", StringComparison.OrdinalIgnoreCase)

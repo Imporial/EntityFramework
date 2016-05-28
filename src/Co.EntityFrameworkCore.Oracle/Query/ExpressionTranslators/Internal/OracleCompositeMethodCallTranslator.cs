@@ -2,34 +2,35 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using JetBrains.Annotations;
+using Microsoft.EntityFrameworkCore.Query.ExpressionTranslators;
 using Microsoft.Extensions.Logging;
 
-namespace Microsoft.EntityFrameworkCore.Query.ExpressionTranslators.Internal
+namespace Co.EntityFrameworkCore.Query.ExpressionTranslators.Internal
 {
-    public class SqlServerCompositeMethodCallTranslator : RelationalCompositeMethodCallTranslator
+    public class OracleCompositeMethodCallTranslator : RelationalCompositeMethodCallTranslator
     {
         private static readonly IMethodCallTranslator[] _methodCallTranslators =
         {
-            new SqlServerMathAbsTranslator(),
-            new SqlServerMathCeilingTranslator(),
-            new SqlServerMathFloorTranslator(),
-            new SqlServerMathPowerTranslator(),
-            new SqlServerMathRoundTranslator(),
-            new SqlServerMathTruncateTranslator(),
-            new SqlServerNewGuidTranslator(),
-            new SqlServerStringIsNullOrWhiteSpaceTranslator(),
-            new SqlServerStringReplaceTranslator(),
-            new SqlServerStringSubstringTranslator(),
-            new SqlServerStringToLowerTranslator(),
-            new SqlServerStringToUpperTranslator(),
-            new SqlServerStringTrimEndTranslator(),
-            new SqlServerStringTrimStartTranslator(),
-            new SqlServerStringTrimTranslator(),
-            new SqlServerConvertTranslator()
+            new OracleMathAbsTranslator(),
+            new OracleMathCeilingTranslator(),
+            new OracleMathFloorTranslator(),
+            new OracleMathPowerTranslator(),
+            new OracleMathRoundTranslator(),
+            new OracleMathTruncateTranslator(),
+            new OracleNewGuidTranslator(),
+            new OracleStringIsNullOrWhiteSpaceTranslator(),
+            new OracleStringReplaceTranslator(),
+            new OracleStringSubstringTranslator(),
+            new OracleStringToLowerTranslator(),
+            new OracleStringToUpperTranslator(),
+            new OracleStringTrimEndTranslator(),
+            new OracleStringTrimStartTranslator(),
+            new OracleStringTrimTranslator(),
+            new OracleConvertTranslator()
         };
 
         // ReSharper disable once SuggestBaseTypeForParameter
-        public SqlServerCompositeMethodCallTranslator([NotNull] ILogger<SqlServerCompositeMethodCallTranslator> logger)
+        public OracleCompositeMethodCallTranslator([NotNull] ILogger<OracleCompositeMethodCallTranslator> logger)
             : base(logger)
         {
             // ReSharper disable once DoNotCallOverridableMethodsInConstructor

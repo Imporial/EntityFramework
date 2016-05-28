@@ -1,44 +1,46 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
-using System.Collections.Generic;
+using Co.EntityFrameworkCore.Metadata;
+using Co.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.EntityFrameworkCore.Migrations;
+using System.Collections.Generic;
 
-namespace Microsoft.EntityFrameworkCore.Migrations.Internal
+namespace Co.EntityFrameworkCore.Migrations.Internal
 {
-    public class SqlServerMigrationsAnnotationProvider : MigrationsAnnotationProvider
+    public class OracleMigrationsAnnotationProvider : MigrationsAnnotationProvider
     {
         public override IEnumerable<IAnnotation> For(IKey key)
         {
-            var isClustered = key.SqlServer().IsClustered;
+            var isClustered = key.Oracle().IsClustered;
             if (isClustered.HasValue)
             {
                 yield return new Annotation(
-                    SqlServerFullAnnotationNames.Instance.Clustered,
+                    OracleFullAnnotationNames.Instance.Clustered,
                     isClustered.Value);
             }
         }
 
         public override IEnumerable<IAnnotation> For(IIndex index)
         {
-            var isClustered = index.SqlServer().IsClustered;
+            var isClustered = index.Oracle().IsClustered;
             if (isClustered.HasValue)
             {
                 yield return new Annotation(
-                    SqlServerFullAnnotationNames.Instance.Clustered,
+                    OracleFullAnnotationNames.Instance.Clustered,
                     isClustered.Value);
             }
         }
 
         public override IEnumerable<IAnnotation> For(IProperty property)
         {
-            if (property.SqlServer().ValueGenerationStrategy == SqlServerValueGenerationStrategy.IdentityColumn)
+            if (property.Oracle().ValueGenerationStrategy == OracleValueGenerationStrategy.IdentityColumn)
             {
                 yield return new Annotation(
-                    SqlServerFullAnnotationNames.Instance.ValueGenerationStrategy,
-                    SqlServerValueGenerationStrategy.IdentityColumn);
+                    OracleFullAnnotationNames.Instance.ValueGenerationStrategy,
+                    OracleValueGenerationStrategy.IdentityColumn);
             }
         }
     }

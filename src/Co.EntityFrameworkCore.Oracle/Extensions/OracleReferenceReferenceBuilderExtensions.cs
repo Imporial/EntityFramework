@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Utilities;
 
 // ReSharper disable once CheckNamespace
-namespace Microsoft.EntityFrameworkCore
+namespace Co.EntityFrameworkCore
 {
-    public static class SqlServerReferenceReferenceBuilderExtensions
+    public static class OracleReferenceReferenceBuilderExtensions
     {
         public static ReferenceReferenceBuilder ForSqlServerHasConstraintName(
             [NotNull] this ReferenceReferenceBuilder referenceReferenceBuilder,
@@ -17,7 +17,7 @@ namespace Microsoft.EntityFrameworkCore
             Check.NotNull(referenceReferenceBuilder, nameof(referenceReferenceBuilder));
             Check.NullButNotEmpty(name, nameof(name));
 
-            referenceReferenceBuilder.Metadata.SqlServer().Name = name;
+            referenceReferenceBuilder.Metadata.Oracle().Name = name;
 
             return referenceReferenceBuilder;
         }

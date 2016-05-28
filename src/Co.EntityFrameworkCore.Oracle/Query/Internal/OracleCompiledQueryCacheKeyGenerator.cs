@@ -8,14 +8,24 @@ using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Utilities;
+using Microsoft.EntityFrameworkCore.Query.Internal;
+using Co.EntityFrameworkCore.Infrastructure.Internal;
 
-namespace Microsoft.EntityFrameworkCore.Query.Internal
+namespace Co.EntityFrameworkCore.Query.Internal
 {
-    public class SqlServerCompiledQueryCacheKeyGenerator : RelationalCompiledQueryCacheKeyGenerator
+    /// <summary>
+    /// Oracle ±‡“Î≤È—Øª∫¥Êº¸…˙≥…∆˜
+    /// </summary>
+    public class OracleCompiledQueryCacheKeyGenerator : RelationalCompiledQueryCacheKeyGenerator
     {
         private readonly IDbContextOptions _contextOptions;
-
-        public SqlServerCompiledQueryCacheKeyGenerator(
+        /// <summary>
+        /// ≥ı ºªØ Oracle ±‡“Î≤È—Øª∫¥Êº¸…˙≥…∆˜
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="currentContext"></param>
+        /// <param name="contextOptions"></param>
+        public OracleCompiledQueryCacheKeyGenerator(
             [NotNull] IModel model,
             [NotNull] ICurrentDbContext currentContext,
             [NotNull] IDbContextOptions contextOptions)
@@ -27,16 +37,22 @@ namespace Microsoft.EntityFrameworkCore.Query.Internal
         }
 
         public override object GenerateCacheKey(Expression query, bool async)
-            => new SqlServerCompiledQueryCacheKey(
+            => new OracleCompiledQueryCacheKey(
                 GenerateCacheKeyCore(query, async),
-                _contextOptions.FindExtension<SqlServerOptionsExtension>()?.RowNumberPaging ?? false);
-
-        private struct SqlServerCompiledQueryCacheKey
+                _contextOptions.FindExtension<OracleOptionsExtension>()?.RowNumberPaging ?? false);
+        /// <summary>
+        /// Oracle ±‡“Î≤È—Øª∫¥Êº¸
+        /// </summary>
+        private struct OracleCompiledQueryCacheKey
         {
             private readonly RelationalCompiledQueryCacheKey _relationalCompiledQueryCacheKey;
             private readonly bool _useRowNumberOffset;
-
-            public SqlServerCompiledQueryCacheKey(
+            /// <summary>
+            /// ≥ı ºªØ Oracle ±‡“Î≤È—Øª∫¥Êº¸
+            /// </summary>
+            /// <param name="relationalCompiledQueryCacheKey"></param>
+            /// <param name="useRowNumberOffset"></param>
+            public OracleCompiledQueryCacheKey(
                 RelationalCompiledQueryCacheKey relationalCompiledQueryCacheKey, bool useRowNumberOffset)
             {
                 _relationalCompiledQueryCacheKey = relationalCompiledQueryCacheKey;
@@ -44,9 +60,9 @@ namespace Microsoft.EntityFrameworkCore.Query.Internal
             }
 
             public override bool Equals(object obj)
-                => !ReferenceEquals(null, obj) && obj is SqlServerCompiledQueryCacheKey && Equals((SqlServerCompiledQueryCacheKey)obj);
+                => !ReferenceEquals(null, obj) && obj is OracleCompiledQueryCacheKey && Equals((OracleCompiledQueryCacheKey)obj);
 
-            private bool Equals(SqlServerCompiledQueryCacheKey other)
+            private bool Equals(OracleCompiledQueryCacheKey other)
                 => _relationalCompiledQueryCacheKey.Equals(other._relationalCompiledQueryCacheKey)
                    && (_useRowNumberOffset == other._useRowNumberOffset);
 

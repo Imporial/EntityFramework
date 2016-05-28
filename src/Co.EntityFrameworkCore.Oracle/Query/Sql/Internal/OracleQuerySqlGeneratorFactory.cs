@@ -3,14 +3,25 @@
 
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.Query.Expressions;
+using Microsoft.EntityFrameworkCore.Query.Sql;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Utilities;
 
-namespace Microsoft.EntityFrameworkCore.Query.Sql.Internal
+namespace Co.EntityFrameworkCore.Query.Sql.Internal
 {
-    public class SqlServerQuerySqlGeneratorFactory : QuerySqlGeneratorFactoryBase
+    /// <summary>
+    /// Oracle 查询 SQL 生成器工厂
+    /// </summary>
+    public class OracleQuerySqlGeneratorFactory : QuerySqlGeneratorFactoryBase
     {
-        public SqlServerQuerySqlGeneratorFactory(
+        /// <summary>
+        /// 初始化 Oracle 查询 SQL 生成器工厂
+        /// </summary>
+        /// <param name="commandBuilderFactory">命令构建工厂</param>
+        /// <param name="sqlGenerationHelper">SQL 生成器帮助类</param>
+        /// <param name="parameterNameGeneratorFactory">参数名生成器工厂</param>
+        /// <param name="relationalTypeMapper">相关类型映射</param>
+        public OracleQuerySqlGeneratorFactory(
             [NotNull] IRelationalCommandBuilderFactory commandBuilderFactory,
             [NotNull] ISqlGenerationHelper sqlGenerationHelper,
             [NotNull] IParameterNameGeneratorFactory parameterNameGeneratorFactory,
@@ -22,9 +33,13 @@ namespace Microsoft.EntityFrameworkCore.Query.Sql.Internal
                 Check.NotNull(relationalTypeMapper, nameof(relationalTypeMapper)))
         {
         }
-
+        /// <summary>
+        /// 以默认方式创建查询
+        /// </summary>
+        /// <param name="selectExpression">select 查询表达式</param>
+        /// <returns></returns>
         public override IQuerySqlGenerator CreateDefault(SelectExpression selectExpression)
-            => new SqlServerQuerySqlGenerator(
+            => new OracleQuerySqlGenerator(
                 CommandBuilderFactory,
                 SqlGenerationHelper,
                 ParameterNameGeneratorFactory,

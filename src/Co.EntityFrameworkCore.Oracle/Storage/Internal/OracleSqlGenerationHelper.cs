@@ -5,10 +5,11 @@ using System;
 using System.Globalization;
 using System.Text;
 using Microsoft.EntityFrameworkCore.Utilities;
+using Microsoft.EntityFrameworkCore.Storage;
 
-namespace Microsoft.EntityFrameworkCore.Storage.Internal
+namespace Co.EntityFrameworkCore.Storage.Internal
 {
-    public class SqlServerSqlGenerationHelper : RelationalSqlGenerationHelper
+    public class OracleSqlGenerationHelper : RelationalSqlGenerationHelper
     {
         private const string DateTimeFormatConst = "yyyy-MM-ddTHH:mm:ss.fffK";
         private const string DateTimeFormatStringConst = "'{0:" + DateTimeFormatConst + "}'";

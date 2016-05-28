@@ -1,24 +1,25 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
-using System;
-using System.Text;
+using Co.EntityFrameworkCore.Storage.Internal;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.EntityFrameworkCore.Storage.Internal;
 using Microsoft.EntityFrameworkCore.Utilities;
+using System;
+using System.Text;
 
-namespace Microsoft.EntityFrameworkCore.Migrations.Internal
+namespace Co.EntityFrameworkCore.Migrations.Internal
 {
-    public class SqlServerHistoryRepository : HistoryRepository
+    public class OracleHistoryRepository : HistoryRepository
     {
-        public SqlServerHistoryRepository(
+        public OracleHistoryRepository(
             [NotNull] IDatabaseCreator databaseCreator,
             [NotNull] IRawSqlCommandBuilder rawSqlCommandBuilder,
-            [NotNull] ISqlServerConnection connection,
+            [NotNull] IOracleConnection connection,
             [NotNull] IDbContextOptions options,
             [NotNull] IMigrationsModelDiffer modelDiffer,
             [NotNull] IMigrationsSqlGenerator migrationsSqlGenerator,
