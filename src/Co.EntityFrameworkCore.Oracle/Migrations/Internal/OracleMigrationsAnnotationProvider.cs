@@ -10,6 +10,9 @@ using System.Collections.Generic;
 
 namespace Co.EntityFrameworkCore.Migrations.Internal
 {
+    /// <summary>
+    /// Oracle 迁移注解提供程序
+    /// </summary>
     public class OracleMigrationsAnnotationProvider : MigrationsAnnotationProvider
     {
         public override IEnumerable<IAnnotation> For(IKey key)

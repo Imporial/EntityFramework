@@ -16,10 +16,19 @@ using Co.EntityFrameworkCore.Metadata;
 
 namespace Co.EntityFrameworkCore.Migrations
 {
+    /// <summary>
+    /// Oracle 迁移 Sql 生成器
+    /// </summary>
     public class OracleMigrationsSqlGenerator : MigrationsSqlGenerator
     {
         private int _variableCounter;
-
+        /// <summary>
+        /// 初始化 Oracle 迁移 Sql 生成器
+        /// </summary>
+        /// <param name="commandBuilderFactory"></param>
+        /// <param name="sqlGenerationHelper"></param>
+        /// <param name="typeMapper"></param>
+        /// <param name="annotations"></param>
         public OracleMigrationsSqlGenerator(
             [NotNull] IRelationalCommandBuilderFactory commandBuilderFactory,
             [NotNull] ISqlGenerationHelper sqlGenerationHelper,
@@ -28,7 +37,12 @@ namespace Co.EntityFrameworkCore.Migrations
             : base(commandBuilderFactory, sqlGenerationHelper, typeMapper, annotations)
         {
         }
-
+        /// <summary>
+        /// 生成迁移
+        /// </summary>
+        /// <param name="operation">迁移操作对象</param>
+        /// <param name="model">模型</param>
+        /// <param name="builder">迁移命令列表构建器</param>
         protected override void Generate(MigrationOperation operation, IModel model, MigrationCommandListBuilder builder)
         {
             Check.NotNull(operation, nameof(operation));
@@ -49,7 +63,12 @@ namespace Co.EntityFrameworkCore.Migrations
                 base.Generate(operation, model, builder);
             }
         }
-
+        /// <summary>
+        /// 生成修改列
+        /// </summary>
+        /// <param name="operation">修改列操作对象</param>
+        /// <param name="model">模型</param>
+        /// <param name="builder">迁移命令列表构建器</param>
         protected override void Generate(
             AlterColumnOperation operation,
             IModel model,
@@ -96,7 +115,12 @@ namespace Co.EntityFrameworkCore.Migrations
 
             EndStatement(builder);
         }
-
+        /// <summary>
+        /// 生成重命名索引
+        /// </summary>
+        /// <param name="operation">重命名索引操作对象</param>
+        /// <param name="model">模型</param>
+        /// <param name="builder">迁移命令列表构建器</param>
         protected override void Generate(
             RenameIndexOperation operation,
             IModel model,
@@ -120,7 +144,12 @@ namespace Co.EntityFrameworkCore.Migrations
             Rename(qualifiedName.ToString(), operation.NewName, "INDEX", builder);
             EndStatement(builder);
         }
-
+        /// <summary>
+        /// 生成重命名序列
+        /// </summary>
+        /// <param name="operation">重命名序列操作对象</param>
+        /// <param name="model">模型</param>
+        /// <param name="builder">迁移命令列表构建器</param>
         protected override void Generate(RenameSequenceOperation operation, IModel model, MigrationCommandListBuilder builder)
         {
             Check.NotNull(operation, nameof(operation));
@@ -157,7 +186,12 @@ namespace Co.EntityFrameworkCore.Migrations
 
             EndStatement(builder);
         }
-
+        /// <summary>
+        /// 生成重命名表
+        /// </summary>
+        /// <param name="operation">重命名表操作对象</param>
+        /// <param name="model">模型</param>
+        /// <param name="builder">迁移命令列表构建器</param>
         protected override void Generate(
             RenameTableOperation operation,
             IModel model,
@@ -197,7 +231,12 @@ namespace Co.EntityFrameworkCore.Migrations
 
             EndStatement(builder);
         }
-
+        /// <summary>
+        /// 生成创建索引
+        /// </summary>
+        /// <param name="operation">创建索引操作对象</param>
+        /// <param name="model">模型</param>
+        /// <param name="builder">迁移命令列表构建器</param>
         protected override void Generate(CreateIndexOperation operation, IModel model, MigrationCommandListBuilder builder)
         {
             Check.NotNull(operation, nameof(operation));
@@ -225,7 +264,12 @@ namespace Co.EntityFrameworkCore.Migrations
 
             EndStatement(builder);
         }
-
+        /// <summary>
+        /// 生成确保架构
+        /// </summary>
+        /// <param name="operation">确保架构操作对象</param>
+        /// <param name="model">模型</param>
+        /// <param name="builder">迁移命令列表构建器</param>
         protected override void Generate(EnsureSchemaOperation operation, IModel model, MigrationCommandListBuilder builder)
         {
             Check.NotNull(operation, nameof(operation));
@@ -245,7 +289,12 @@ namespace Co.EntityFrameworkCore.Migrations
 
             EndStatement(builder);
         }
-
+        /// <summary>
+        /// 生成创建数据库（Oracle 无效）
+        /// </summary>
+        /// <param name="operation"></param>
+        /// <param name="model"></param>
+        /// <param name="builder"></param>
         protected virtual void Generate(
             [NotNull] OracleCreateDatabaseOperation operation,
             [CanBeNull] IModel model,
@@ -266,7 +315,12 @@ namespace Co.EntityFrameworkCore.Migrations
 
             EndStatement(builder, suppressTransaction: true);
         }
-
+        /// <summary>
+        /// 生成分离数据库（Oracle 无效）
+        /// </summary>
+        /// <param name="operation"></param>
+        /// <param name="model"></param>
+        /// <param name="builder"></param>
         protected virtual void Generate(
             [NotNull] OracleDropDatabaseOperation operation,
             [CanBeNull] IModel model,
@@ -287,7 +341,12 @@ namespace Co.EntityFrameworkCore.Migrations
 
             EndStatement(builder, suppressTransaction: true);
         }
-
+        /// <summary>
+        /// 生成分离索引
+        /// </summary>
+        /// <param name="operation">分离索引操作对象</param>
+        /// <param name="model">模型</param>
+        /// <param name="builder">迁移命令列表构建器</param>
         protected override void Generate(
             DropIndexOperation operation,
             IModel model,
@@ -304,7 +363,12 @@ namespace Co.EntityFrameworkCore.Migrations
 
             EndStatement(builder);
         }
-
+        /// <summary>
+        /// 生成分离列
+        /// </summary>
+        /// <param name="operation">分离列操作对象</param>
+        /// <param name="model">模型</param>
+        /// <param name="builder">迁移命令列表构建器</param>
         protected override void Generate(
             DropColumnOperation operation,
             IModel model,
@@ -316,7 +380,12 @@ namespace Co.EntityFrameworkCore.Migrations
             DropDefaultConstraint(operation.Schema, operation.Table, operation.Name, builder);
             base.Generate(operation, model, builder);
         }
-
+        /// <summary>
+        /// 生成重命名列
+        /// </summary>
+        /// <param name="operation">重命名列操作对象</param>
+        /// <param name="model">模型</param>
+        /// <param name="builder">迁移命令列表构建器</param>
         protected override void Generate(
             RenameColumnOperation operation,
             IModel model,
@@ -340,7 +409,21 @@ namespace Co.EntityFrameworkCore.Migrations
             Rename(qualifiedName.ToString(), operation.NewName, "COLUMN", builder);
             EndStatement(builder);
         }
-
+        /// <summary>
+        /// 列定义
+        /// </summary>
+        /// <param name="schema">架构</param>
+        /// <param name="table">表</param>
+        /// <param name="name">列名</param>
+        /// <param name="clrType">clr 类型</param>
+        /// <param name="type">数据类型</param>
+        /// <param name="nullable">是否可为空</param>
+        /// <param name="defaultValue">默认值</param>
+        /// <param name="defaultValueSql">默认值 sql</param>
+        /// <param name="computedColumnSql">计算列 sql</param>
+        /// <param name="annotatable">注解</param>
+        /// <param name="model">模型</param>
+        /// <param name="builder">迁移命令列表构建器</param>
         protected override void ColumnDefinition(
             string schema,
             string table,
@@ -373,7 +456,22 @@ namespace Co.EntityFrameworkCore.Migrations
                 model,
                 builder);
         }
-
+        /// <summary>
+        /// 列定义
+        /// </summary>
+        /// <param name="schema">架构</param>
+        /// <param name="table">表</param>
+        /// <param name="name">列名</param>
+        /// <param name="clrType">clr 类型</param>
+        /// <param name="type">数据类型</param>
+        /// <param name="nullable">是否可为空</param>
+        /// <param name="defaultValue">默认值</param>
+        /// <param name="defaultValueSql">默认值 sql</param>
+        /// <param name="computedColumnSql">计算列 sql</param>
+        /// <param name="identity">是否唯一标示</param>
+        /// <param name="annotatable">注解</param>
+        /// <param name="model">模型</param>
+        /// <param name="builder">迁移命令列表构建器</param>
         protected virtual void ColumnDefinition(
             [CanBeNull] string schema,
             [NotNull] string table,

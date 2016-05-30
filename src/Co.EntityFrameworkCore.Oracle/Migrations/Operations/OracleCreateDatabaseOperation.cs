@@ -6,6 +6,9 @@ using Microsoft.EntityFrameworkCore.Migrations.Operations;
 
 namespace Co.EntityFrameworkCore.Migrations.Operations
 {
+    /// <summary>
+    /// Oracle 创建数据库操作
+    /// </summary>
     public class OracleCreateDatabaseOperation : MigrationOperation
     {
         public virtual string Name { get; [param: NotNull] set; }

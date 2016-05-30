@@ -14,8 +14,22 @@ using System.Text;
 
 namespace Co.EntityFrameworkCore.Migrations.Internal
 {
+    /// <summary>
+    /// Oracle 历史资料库
+    /// </summary>
     public class OracleHistoryRepository : HistoryRepository
     {
+        /// <summary>
+        /// 初始化 Oracle 历史资料库
+        /// </summary>
+        /// <param name="databaseCreator">数据库构建器</param>
+        /// <param name="rawSqlCommandBuilder">原始 SQL 命令构建器</param>
+        /// <param name="connection">Oracle 数据库连接</param>
+        /// <param name="options">数据实体上下文可选项</param>
+        /// <param name="modelDiffer">模型差异</param>
+        /// <param name="migrationsSqlGenerator">迁移 Sql 生成器</param>
+        /// <param name="annotations">相关注解提供程序</param>
+        /// <param name="sqlGenerationHelper">sql 生成器帮助类</param>
         public OracleHistoryRepository(
             [NotNull] IDatabaseCreator databaseCreator,
             [NotNull] IRawSqlCommandBuilder rawSqlCommandBuilder,
@@ -36,7 +50,9 @@ namespace Co.EntityFrameworkCore.Migrations.Internal
                 sqlGenerationHelper)
         {
         }
-
+        /// <summary>
+        /// 获取已存在 sql
+        /// </summary>
         protected override string ExistsSql
         {
             get
@@ -59,9 +75,17 @@ namespace Co.EntityFrameworkCore.Migrations.Internal
                 return builder.ToString();
             }
         }
-
+        /// <summary>
+        /// 是否存在翻译结果
+        /// </summary>
+        /// <param name="value">待翻译对象</param>
+        /// <returns></returns>
         protected override bool InterpretExistsResult(object value) => value != DBNull.Value;
-
+        /// <summary>
+        /// 获取插入脚本
+        /// </summary>
+        /// <param name="row">历史数据行</param>
+        /// <returns></returns>
         public override string GetInsertScript(HistoryRow row)
         {
             Check.NotNull(row, nameof(row));
@@ -80,7 +104,11 @@ namespace Co.EntityFrameworkCore.Migrations.Internal
                 .AppendLine("');")
                 .ToString();
         }
-
+        /// <summary>
+        /// 获取删除脚本
+        /// </summary>
+        /// <param name="migrationId">迁移标示</param>
+        /// <returns></returns>
         public override string GetDeleteScript(string migrationId)
         {
             Check.NotEmpty(migrationId, nameof(migrationId));
@@ -94,7 +122,10 @@ namespace Co.EntityFrameworkCore.Migrations.Internal
                 .AppendLine("';")
                 .ToString();
         }
-
+        /// <summary>
+        /// 如果不存在获取 CREATE 脚本
+        /// </summary>
+        /// <returns></returns>
         public override string GetCreateIfNotExistsScript()
         {
             var builder = new IndentedStringBuilder();
@@ -120,7 +151,11 @@ namespace Co.EntityFrameworkCore.Migrations.Internal
 
             return builder.ToString();
         }
-
+        /// <summary>
+        /// 如果不存在获取 BEGIN 脚本
+        /// </summary>
+        /// <param name="migrationId">迁移标示</param>
+        /// <returns></returns>
         public override string GetBeginIfNotExistsScript(string migrationId)
         {
             Check.NotEmpty(migrationId, nameof(migrationId));
@@ -136,7 +171,11 @@ namespace Co.EntityFrameworkCore.Migrations.Internal
                 .Append("BEGIN")
                 .ToString();
         }
-
+        /// <summary>
+        /// 如果存在获取 BEGIN 脚本
+        /// </summary>
+        /// <param name="migrationId">迁移标示</param>
+        /// <returns></returns>
         public override string GetBeginIfExistsScript(string migrationId)
         {
             Check.NotEmpty(migrationId, nameof(migrationId));
@@ -152,7 +191,10 @@ namespace Co.EntityFrameworkCore.Migrations.Internal
                 .Append("BEGIN")
                 .ToString();
         }
-
+        /// <summary>
+        /// 获取 EndIf 脚本
+        /// </summary>
+        /// <returns></returns>
         public override string GetEndIfScript() => "END;" + Environment.NewLine;
     }
 }
